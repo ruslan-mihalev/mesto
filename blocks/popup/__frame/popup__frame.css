@@ -1,0 +1,14 @@
+.popup__frame {
+  display: box;
+  position: relative;
+  width: 100%;
+  min-width: 282px;
+  max-width: 510px;
+
+}
+
+@media screen and (min-width: 468px) {
+  .popup__frame {
+    min-height: 330px;
+  }
+}

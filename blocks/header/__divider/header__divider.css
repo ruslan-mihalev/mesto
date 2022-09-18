@@ -1,0 +1,7 @@
+.header__divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #545454;
+  border: none;
+}
