@@ -1,0 +1,13 @@
+.footer__container {
+  max-width: 880px;
+  min-height: 62px;
+  margin: 0 auto;
+  padding: 12px 0 0 0;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 880px) {
+  .footer__container {
+    min-height: 94px;
+  }
+}

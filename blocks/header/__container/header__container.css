@@ -1,0 +1,14 @@
+.header__container {
+  max-width: 880px;
+  min-height: 84px;
+  margin: 0 auto;
+  padding: 28px 0 0 0;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 880px) {
+  .header__container {
+    min-height: 120px;
+    padding: 45px 0 0 0;
+  }
+}

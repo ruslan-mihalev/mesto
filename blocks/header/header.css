@@ -1,13 +1,5 @@
 .header {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto 42px auto;
-  min-height: 84px;
-}
-
-@media screen and (min-height: 468px) {
-  .header {
-    min-height: 120px;
-    margin: 0 auto 40px auto;
-  }
+  min-width: 320px;
+  padding: 0 27px 0 27px;
+  box-sizing: border-box;
 }
