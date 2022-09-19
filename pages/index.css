@@ -6,10 +6,12 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__container/header__container.css);
 @import url(../blocks/header/__logo/header__logo.css);
-@import url(../blocks/divider/divider.css);
 @import url(../blocks/content/content.css);
+@import url(../blocks/divider/divider.css);
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__container/profile__container.css);
 @import url(../blocks/card-grid/card-grid.css);
-@import url(../blocks/card-grid/__items-container/card-grid__items-container.css);
+@import url(../blocks/card-grid/__container/card-grid__container.css);
 @import url(../blocks/card-grid/__item/card-grid__item.css);
 @import url(../blocks/card-grid/__item-image/card-grid__item-image.css);
 @import url(../blocks/card-grid/__item-caption-container/card-grid__item-caption-container.css);

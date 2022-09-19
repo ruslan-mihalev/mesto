@@ -1,4 +1,6 @@
-.card-grid__items-container {
+.card-grid__container {
+  max-width: 880px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 282px;
   gap: 20px 17px;
@@ -6,13 +8,13 @@
 }
 
 @media screen and (min-width: 768px) {
-  .card-grid__items-container {
+  .card-grid__container {
     grid-template-columns: repeat(2, 282px);
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .card-grid__items-container {
+  .card-grid__container {
     grid-template-columns: repeat(3, 282px);
   }
 }

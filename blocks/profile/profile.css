@@ -1,0 +1,12 @@
+.profile {
+  min-width: 320px;
+  padding: 0 19px 0 19px;
+  margin: 0 0 36px 0;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 880px) {
+  .profile {
+    margin: 0 0 52px 0;
+  }
+}
