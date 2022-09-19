@@ -1,0 +1,11 @@
+.card-grid__item-like {
+  display: block;
+  width: 22px;
+  height: 19px;
+  margin: 0 0 0 auto;
+  background-image: url(../../../images/favorite-outline.svg);
+}
+
+.card-grid__item-like:hover {
+  opacity: 0.5;
+}
