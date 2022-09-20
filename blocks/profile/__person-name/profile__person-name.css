@@ -1,6 +1,9 @@
 .profile__person-name {
+  display: inline-block;
   max-width: 190px;
   min-height: 26px;
+  margin: 0 10px 0 0;
+  padding: 0;
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 500;
   font-style: normal;
@@ -8,11 +11,15 @@
   line-height: 32.7px;
   text-align: center;
   color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 880px) {
   .profile__person-name {
     max-width: 294px;
+    margin: 0 18px 0 0;
     font-size: 42px;
     line-height: 48px;
   }

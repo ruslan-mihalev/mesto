@@ -1,0 +1,12 @@
+.profile__person-name-container {
+  display: inline-block;
+  margin: 0 0 14px 0;
+  padding: 0 0 0 28px;
+}
+
+@media screen and (min-width: 880px) {
+  .profile__person-name-container {
+    margin: 0 0 16px 0;
+    padding: 0;
+  }
+}

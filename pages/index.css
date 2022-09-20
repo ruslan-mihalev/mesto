@@ -10,9 +10,9 @@
 @import url(../blocks/divider/divider.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__container/profile__container.css);
-@import url(../blocks/profile/__avatar-container/profile__avatar-container.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__person-name-container/profile__person-name-container.css);
 @import url(../blocks/profile/__person-name/profile__person-name.css);
 @import url(../blocks/profile/__person-about/profile__person-about.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
