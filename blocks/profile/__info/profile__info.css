@@ -1,0 +1,9 @@
+.profile__info {
+  min-height: 54px;
+}
+
+@media screen and (min-width: 880px) {
+  .profile__info {
+    min-height: 74px;
+  }
+}

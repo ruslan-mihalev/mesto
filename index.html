@@ -20,13 +20,23 @@
         <hr class="divider">
 
         <section class="profile">
-          <div class="profile__container"></div>
+          <div class="profile__container">
+            <div class="profile__avatar-container">
+              <img class="profile__avatar" src="./images/cousteau-photo.jpg" alt="Жак-Ив Кусто" />
+            </div>
+            <div class="profile__info">
+              <h2 class="profile__person-name"></h2>
+              <p class="profile__person-about"></p>
+              <button class="profile__edit-button"></button>
+            </div>
+            <button class="profile__add-button"></button>
+          </div>
         </section>
 
         <section class="card-grid" aria-label="Список мест для путешествий">
           <ul class="card-grid__container list">
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/karachaevsk.jpg"/>
+              <img class="card-grid__item-image" src="./images/karachaevsk.jpg" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Карачаевск</h2>
                 <div class="card-grid__item-like"></div>
@@ -34,7 +44,7 @@
             </li>
 
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/elbrus.png"/>
+              <img class="card-grid__item-image" src="./images/elbrus.png" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Гора Эльбрус</h2>
                 <div class="card-grid__item-like"></div>
@@ -42,7 +52,7 @@
             </li>
 
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/dombai.png"/>
+              <img class="card-grid__item-image" src="./images/dombai.png" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Домбай</h2>
                 <div class="card-grid__item-like"></div>
@@ -50,7 +60,7 @@
             </li>
 
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/elbrus.png"/>
+              <img class="card-grid__item-image" src="./images/elbrus.png" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Гора Эльбрус</h2>
                 <div class="card-grid__item-like"></div>
@@ -58,7 +68,7 @@
             </li>
 
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/dombai.png"/>
+              <img class="card-grid__item-image" src="./images/dombai.png" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Домбай</h2>
                 <div class="card-grid__item-like"></div>
@@ -66,7 +76,7 @@
             </li>
 
             <li class="card-grid__item">
-              <img class="card-grid__item-image" src="./images/karachaevsk.jpg"/>
+              <img class="card-grid__item-image" src="./images/karachaevsk.jpg" />
               <div class="card-grid__item-caption-container">
                 <h2 class="card-grid__item-caption">Карачаево-Ч...</h2>
                 <div class="card-grid__item-like"></div>
@@ -89,12 +99,14 @@
 
         <div class="popup__content">
           <a href="" class="popup__close">
-            <img class="popup__close-icon" src="./images/icon-close.svg" alt="Закрыть редактор профиля"/>
+            <img class="popup__close-icon" src="./images/icon-close.svg" alt="Закрыть редактор профиля" />
           </a>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__form">
-            <input type="text" id="input-name" name="input-name" class="popup__input-name popup__input-text-field" placeholder="Имя">
-            <input type="text" id="input-aboutme" name="input-aboutme" class="popup__input-aboutme popup__input-text-field" placeholder="О себе">
+            <input type="text" id="input-name" name="input-name" class="popup__input-name popup__input-text-field"
+              placeholder="Имя">
+            <input type="text" id="input-aboutme" name="input-aboutme"
+              class="popup__input-aboutme popup__input-text-field" placeholder="О себе">
             <button class="popup__submit">Сохранить</button>
           </form>
         </div>

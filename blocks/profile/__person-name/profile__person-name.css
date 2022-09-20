@@ -1,0 +1,10 @@
+.profile__person-name {
+  max-width: 190px;
+  min-height: 26px;
+}
+
+@media screen and (min-width: 880px) {
+  .profile__person-name {
+    max-width: 294px;
+  }
+}
