@@ -12,10 +12,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 @media screen and (min-width: 880px) {
   .profile__person-about {
+    min-height: 18px;
     font-size: 18px;
     line-height: 22px;
   }

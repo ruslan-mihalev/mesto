@@ -14,11 +14,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 @media screen and (min-width: 880px) {
   .profile__person-name {
     max-width: 294px;
+    min-height: 39px;
     margin: 0 18px 0 0;
     font-size: 42px;
     line-height: 48px;
