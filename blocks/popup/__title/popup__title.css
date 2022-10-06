@@ -3,12 +3,13 @@
   margin: 0 auto 75px auto;
   padding: 0;
   width: 100%;
+  min-width: 238px;
   max-width: 358px;
   font-style: normal;
   font-weight: 900;
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: left;
   color: #000;
 }
 
