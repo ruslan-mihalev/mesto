@@ -1,8 +1,11 @@
 .card-grid__item-caption-container {
-  margin: 0;
-  padding: 25px 20px 0 20px;
+  display: flex;
+  flex-direction: row;
+  max-width: 246px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 }
