@@ -1,5 +1,5 @@
 .popup__frame {
-  display: box;
+  display: block;
   position: relative;
   width: 100%;
   min-width: 282px;
