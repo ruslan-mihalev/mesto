@@ -1,9 +1,0 @@
-.popup__input-aboutme {
-  margin: 0 0 45px 0;
-}
-
-@media screen and (min-width: 468px) {
-  .popup__input-aboutme {
-    margin: 0 0 48px 0;
-  }
-}

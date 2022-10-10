@@ -1,0 +1,9 @@
+.popup__input_target_aboutme {
+  margin: 0 0 45px 0;
+}
+
+@media screen and (min-width: 468px) {
+  .popup__input_target_aboutme {
+    margin-bottom: 48px;
+  }
+}

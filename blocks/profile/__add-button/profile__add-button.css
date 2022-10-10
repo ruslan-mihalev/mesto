@@ -3,12 +3,9 @@
   width: 100%;
   max-width: 282px;
   height: 50px;
-  background-size: 16px 16px;
-  background-position: center;
-  background-image: url(../../../images/plus.svg);
-  background-repeat: no-repeat;
-  background-color: #000;
+  background: #000 url(../../../images/plus.svg) no-repeat center / 16px 16px;
   border: 2px solid #fff;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
@@ -20,6 +17,6 @@
     width: 150px;
     height: 50px;
     margin-left: auto;
-    background-size: 22px 22px;
+    background: #000 url(../../../images/plus.svg) no-repeat center / 22px 22px;
   }
 }

@@ -8,7 +8,6 @@
 
 @media screen and (min-width: 880px) {
   .profile__person-name-container {
-    margin: 0 0 8px 0;
     padding: 0;
   }
 }

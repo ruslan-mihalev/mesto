@@ -26,4 +26,4 @@
 * form
 * JavaScript
 
-[Открыть сайт с результатом](https://ruslan-mihalev.github.io/mesto/)
+[По этой ссылке вы можете ознакомиться с результатом работы на Github Pages](https://ruslan-mihalev.github.io/mesto/)
