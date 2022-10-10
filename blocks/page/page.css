@@ -10,4 +10,9 @@
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
+  --min-screen-width: 320px;
+  --min-content-horizontal-padding: 19px;
+  --min-content-horizontal-padding-2: calc(var(--min-content-horizontal-padding) * 2);
+  --min-content-width: calc(var(--min-screen-width) - var(--min-content-horizontal-padding-2));
+  --max-content-width: 880px;
 }
