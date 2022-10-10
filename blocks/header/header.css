@@ -1,5 +1,13 @@
 .header {
-  min-width: 320px;
-  padding: 0 27px 0 27px;
+  min-width: var(--min-screen-width);
+  max-width: var(--max-content-width);
+  margin: 0 auto 42px auto;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 880px) {
+  .header {
+    margin-bottom: 40px;
+  }
 }
