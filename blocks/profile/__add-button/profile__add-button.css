@@ -5,6 +5,7 @@
   height: 50px;
   background: #000 url(../../../images/plus.svg) no-repeat center / 16px 16px;
   border: 2px solid #fff;
+  box-shadow: none;
   cursor: pointer;
 }
 

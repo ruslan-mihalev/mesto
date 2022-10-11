@@ -5,6 +5,7 @@
   margin: 0 0 0 auto;
   background: url(../../../images/favorite-outline.svg) no-repeat center / cover;
   border: none;
+  box-shadow: none;
   cursor: pointer;
 }
 

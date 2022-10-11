@@ -6,6 +6,7 @@
   right: 0px;
   background: url('./../../../images/icon-close.svg') no-repeat center / cover;
   border: none;
+  box-shadow: none;
   cursor: pointer;
 }
 
