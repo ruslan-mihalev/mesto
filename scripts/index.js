@@ -9,22 +9,22 @@ let nameInput = formElement.querySelector('.popup__input_target_name');
 let aboutInput = formElement.querySelector('.popup__input_target_aboutme');
 
 function updatePopupHandler (event) {
-  popupElement.classList.toggle('popup_opened');
-  if (popupElement.classList.contains('popup_opened')) {
+  popupElement.classList.toggle('popup_closed');
+  if (popupElement.classList.contains('popup_closed')) {
     nameInput.value = nameElement.textContent;
     aboutInput.value = aboutElement.textContent;
   }
 }
 
 function popupCloseButtonClickHandler (event) {
-  popupElement.classList.toggle('popup_opened');
+  popupElement.classList.toggle('popup_closed');
 }
 
 function formSubmitHandler (event) {
   event.preventDefault()
   nameElement.textContent = nameInput.value;
   aboutElement.textContent = aboutInput.value;
-  popupElement.classList.toggle('popup_opened');
+  popupElement.classList.toggle('popup_closed');
 }
 
 editButton.addEventListener('click', updatePopupHandler);

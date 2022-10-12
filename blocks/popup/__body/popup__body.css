@@ -1,8 +1,0 @@
-.popup__body {
-  display: flex;
-  min-height: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: 25px 19px;
-  box-sizing: border-box;
-}
