@@ -8,25 +8,21 @@ let formElement = popupElement.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_target_name');
 let aboutInput = formElement.querySelector('.popup__input_target_aboutme');
 
-function updatePopupHandler (event) {
-  popupElement.classList.toggle('popup_closed');
-  if (popupElement.classList.contains('popup_closed')) {
+function togglePopupVisibility () {
+  popupElement.classList.toggle('popup_active');
+  if (popupElement.classList.contains('popup_active')) {
     nameInput.value = nameElement.textContent;
     aboutInput.value = aboutElement.textContent;
   }
-}
-
-function popupCloseButtonClickHandler (event) {
-  popupElement.classList.toggle('popup_closed');
 }
 
 function formSubmitHandler (event) {
   event.preventDefault()
   nameElement.textContent = nameInput.value;
   aboutElement.textContent = aboutInput.value;
-  popupElement.classList.toggle('popup_closed');
+  togglePopupVisibility();
 }
 
-editButton.addEventListener('click', updatePopupHandler);
-popupCloseButton.addEventListener('click', updatePopupHandler);
+editButton.addEventListener('click', togglePopupVisibility);
+popupCloseButton.addEventListener('click', togglePopupVisibility);
 formElement.addEventListener('submit', formSubmitHandler);

@@ -1,6 +1,6 @@
 .popup {
   padding: 0 19px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
