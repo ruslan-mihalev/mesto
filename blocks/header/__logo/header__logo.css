@@ -1,7 +1,7 @@
 .header__logo {
   max-width: 104px;
   height: 24px;
-  margin: 0;
+  margin-left: min(max(calc(27px - (100vw - var(--min-screen-width)) / 2), 0px), var(--min-header-content-horizontal-padding));
   padding: 0;
   background-image: url(../../../images/logo.svg);
   background-position: center;
@@ -13,5 +13,6 @@
   .header__logo {
     max-width: 142px;
     height: 33px;
+    margin-left: 0;
   }
 }

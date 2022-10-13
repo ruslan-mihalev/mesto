@@ -10,10 +10,7 @@
 
 @media screen and (min-width: 880px) {
   .footer__copyrighting {
-    font-weight: 400;
-    font-style: normal;
     font-size: 18px;
     line-height: 22px;
-    color: #545454;
   }
 }
