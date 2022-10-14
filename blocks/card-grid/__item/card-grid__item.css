@@ -4,6 +4,7 @@
   line-height: 0;
   width: 282px;
   height: 361px;
+  position: relative;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;

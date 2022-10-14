@@ -6,4 +6,5 @@
   object-fit: cover;
   object-position: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
