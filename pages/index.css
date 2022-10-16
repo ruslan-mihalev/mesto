@@ -15,6 +15,7 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/card-grid/__container/card-grid__container.css);
 @import url(../blocks/card-grid/__item/card-grid__item.css);
+@import url(../blocks/card-grid/__item-image-container/card-grid__item-image-container.css);
 @import url(../blocks/card-grid/__item-image/card-grid__item-image.css);
 @import url(../blocks/card-grid/__item-caption-container/card-grid__item-caption-container.css);
 @import url(../blocks/card-grid/__item-caption/card-grid__item-caption.css);

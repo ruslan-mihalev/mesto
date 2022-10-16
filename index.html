@@ -28,59 +28,6 @@
 
       <section class="card-grid" aria-label="Список мест для путешествий">
         <ul class="card-grid__container list">
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Карачаевск</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
-
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/elbrus.png" alt="Гора Эльбрус">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Гора Эльбрус</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
-
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/dombai.png" alt="Домбай">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Домбай</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
-
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/elbrus.png" alt="Гора Эльбрус">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Гора Эльбрус</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
-
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/dombai.png" alt="Домбай">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Домбай</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
-
-          <li class="card-grid__item">
-            <img class="card-grid__item-image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
-            <div class="card-grid__item-caption-container">
-              <h2 class="card-grid__item-caption">Карачаево-Черкесия</h2>
-              <button class="card-grid__item-like-button" type="button"></button>
-            </div>
-            <button class="card-grid__item-delete-button" type="button"></button>
-          </li>
         </ul>
       </section>
     </main>
@@ -102,6 +49,19 @@
       </div>
     </div>
   </div>
+
+  <template id="card-template">
+    <li class="card-grid__item">
+      <div class="card-grid__item-image-container">
+        <img class="card-grid__item-image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+      </div>
+      <div class="card-grid__item-caption-container">
+        <h2 class="card-grid__item-caption">Карачаевск</h2>
+        <button class="card-grid__item-like-button" type="button"></button>
+      </div>
+      <button class="card-grid__item-delete-button" type="button"></button>
+    </li>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>

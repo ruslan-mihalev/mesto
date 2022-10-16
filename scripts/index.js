@@ -1,3 +1,32 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const cardContainerElement = document.querySelector('.card-grid__container');
+
 const nameElement = document.querySelector('.profile__person-name');
 const aboutElement = document.querySelector('.profile__person-about');
 const editButton = document.querySelector('.profile__edit-button');
@@ -13,7 +42,62 @@ const submitInput = formElement.querySelector('.popup__submit');
 
 let popupSubmitListener = null;
 
-function togglePopupVisibility() {
+/**
+ * Добавляет карточку
+ * @param {*} name имя карточки
+ * @param {*} link ссылка на изображение
+ * @param {*} inHead добавить в начало списка
+ */
+const addCard = function (name, link, inHead = false) {
+
+  // Prepare template
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.card-grid__item').cloneNode(true);
+  const imageElement = cardElement.querySelector('.card-grid__item-image');
+  const nameElement = cardElement.querySelector('.card-grid__item-caption');
+  const likeButtonElement = cardElement.querySelector('.card-grid__item-like-button');
+  const deleteButtonElement = cardElement.querySelector('.card-grid__item-delete-button');
+
+  imageElement.src = link;
+  imageElement.alt = name;
+  nameElement.textContent = name;
+
+  // Bind like action
+  likeButtonElement.addEventListener('click', evt => {
+    likeButtonElement.classList.toggle('card-grid__item-like-button_active');
+  });
+
+  // Bind delete action
+  deleteButtonElement.addEventListener('click', evt => {
+    evt.target.parentElement.remove();
+  });
+
+  // Bind image click action
+  imageElement.addEventListener('click', evt => {
+    // TODO
+  });
+
+  // Add to grid
+  if (inHead) {
+    cardContainerElement.prepend(cardElement);
+  } else {
+    cardContainerElement.append(cardElement);
+  }
+}
+
+/**
+ * Производит первичную инициализацию списка карточек
+ */
+const initCards = function () {
+  initialCards.forEach(item => {
+    addCard(item.name, item.link);
+  });
+}
+
+/**
+ * Меняет видимость диалогового окна
+ */
+const togglePopupVisibility = function () {
 
   // Удаляем обработчик события подтверждения формы перед закрытием попапа
   if (popupElement.classList.contains('popup_active') && popupSubmitListener) {
@@ -24,8 +108,11 @@ function togglePopupVisibility() {
   popupElement.classList.toggle('popup_active');
 }
 
+/**
+ * Открывает диалог редактирования профиля
+ */
 const openProfileEditingPopup = function () {
-  titleElement.value = 'Редактировать профиль';
+  titleElement.textContent = 'Редактировать профиль';
   submitInput.value = 'Сохранить';
   nameInput.value = nameElement.textContent;
   nameInput.placeholder = '';
@@ -43,9 +130,12 @@ const openProfileEditingPopup = function () {
   togglePopupVisibility();
 }
 
+/**
+ * Открывает диалог добавления карточки
+ */
 const openCardAddingPopup = function () {
-  titleElement.value = 'Новое место';
-  submitInput.value = 'Создать';
+  titleElement.textContent = 'Новое место';
+  submitInput.textContent = 'Создать';
   nameInput.value = '';
   nameInput.placeholder = 'Название';
   descriptionInput.value = '';
@@ -53,7 +143,7 @@ const openCardAddingPopup = function () {
 
   popupSubmitListener = (evt) => {
     evt.preventDefault();
-    // TODO Тут будет добавление элемента
+    addCard(nameInput.value, descriptionInput.value, true);
     togglePopupVisibility();
   };
 
@@ -64,3 +154,5 @@ const openCardAddingPopup = function () {
 editButton.addEventListener('click', openProfileEditingPopup);
 addButton.addEventListener('click', openCardAddingPopup);
 popupCloseButton.addEventListener('click', togglePopupVisibility);
+
+initCards();
