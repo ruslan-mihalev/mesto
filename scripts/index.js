@@ -36,7 +36,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const popupElement = document.querySelector('.popup');
-const popupCloseButton = popupElement.querySelector('.floating-close-button_popup');
+const popupCloseButton = popupElement.querySelector('.floating-close-button_place_popup');
 const titleElement = popupElement.querySelector('.popup__title');
 const formElement = popupElement.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_target_name');
@@ -44,7 +44,7 @@ const infoInput = formElement.querySelector('.popup__input_target_info');
 const submitInput = formElement.querySelector('.popup__submit');
 
 const imagePopupElement = document.querySelector('.image-popup');
-const imagePopupCloseButton = imagePopupElement.querySelector('.floating-close-button_image-popup');
+const imagePopupCloseButton = imagePopupElement.querySelector('.floating-close-button_place_image-popup');
 const imagePopupCaption = imagePopupElement.querySelector('.image-popup__caption');
 
 let popupSubmitListener = null;
