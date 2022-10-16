@@ -1,2 +1,5 @@
 .image-popup__image {
+  border: 1px solid #f00;
+  object-fit: cover;
+  object-position: center;
 }

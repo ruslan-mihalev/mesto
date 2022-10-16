@@ -170,7 +170,7 @@ const openCardAddingPopup = function () {
 const openImagePopup = function (name, link) {
   let imageElement = imagePopupElement.querySelector('.image-popup__image');
   imageElement.src = link;
-
+  imagePopupCaption.textContent = name;
   toggleImagePopupVisibility();
 }
 
@@ -178,5 +178,15 @@ editButton.addEventListener('click', openProfileEditingPopup);
 addButton.addEventListener('click', openCardAddingPopup);
 popupCloseButton.addEventListener('click', togglePopupVisibility);
 imagePopupCloseButton.addEventListener('click', toggleImagePopupVisibility);
+popupElement.addEventListener('click', evt => {
+  if (evt.target == evt.currentTarget) {
+    togglePopupVisibility();
+  }
+});
+imagePopupElement.addEventListener('click', evt => {
+  if (evt.target == evt.currentTarget) {
+    toggleImagePopupVisibility();
+  }
+});
 
 initCards();
