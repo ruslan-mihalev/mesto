@@ -107,17 +107,14 @@ const createCard = function (name, link) {
   imageElement.alt = name;
   nameElement.textContent = name;
 
-  // Bind like action
   likeButtonElement.addEventListener('click', () => {
     likeButtonElement.classList.toggle('card-grid__item-like-button_active');
   });
 
-  // Bind delete action
   deleteButtonElement.addEventListener('click', () => {
     cardElement.remove();
   });
 
-  // Bind image click action
   imageElement.addEventListener('click', () => {
     if (imageElement.naturalWidth > 0) {
       imagePopupImageElement.src = link;
@@ -158,24 +155,6 @@ addButton.addEventListener('click', () => {
   openPopup(cardPopupElement);
 });
 
-profilePopupCloseButton.addEventListener('click', () => {
-  closePopup(profilePopupElement);
-});
-cardPopupCloseButton.addEventListener('click', () => {
-  closePopup(cardPopupElement);
-});
-imagePopupCloseButton.addEventListener('click', () => {
-  closePopup(imagePopupElement);
-});
-
-[profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
-  popup.addEventListener('click', evt => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(evt.target);
-    }
-  });
-});
-
 profilePopupFormElement.addEventListener('submit', evt => {
   evt.preventDefault();
   nameElement.textContent = profilePopupNameInput.value;
@@ -187,6 +166,26 @@ cardPopupFormElement.addEventListener('submit', evt => {
   evt.preventDefault();
   addCard(cardPopupNameInput.value, cardPopupLinkInput.value);
   closePopup(cardPopupElement);
+});
+
+profilePopupCloseButton.addEventListener('click', () => {
+  closePopup(profilePopupElement);
+});
+
+cardPopupCloseButton.addEventListener('click', () => {
+  closePopup(cardPopupElement);
+});
+
+imagePopupCloseButton.addEventListener('click', () => {
+  closePopup(imagePopupElement);
+});
+
+[profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
+  popup.addEventListener('click', evt => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(evt.target);
+    }
+  });
 });
 
 initCards();
