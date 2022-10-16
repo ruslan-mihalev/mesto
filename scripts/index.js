@@ -41,11 +41,14 @@ const titleElement = popupElement.querySelector('.popup__title');
 const formElement = popupElement.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_target_name');
 const infoInput = formElement.querySelector('.popup__input_target_info');
-const submitInput = formElement.querySelector('.popup__submit');
+const submitButton = formElement.querySelector('.popup__submit');
 
 const imagePopupElement = document.querySelector('.image-popup');
 const imagePopupCloseButton = imagePopupElement.querySelector('.floating-close-button_place_image-popup');
-const imagePopupCaption = imagePopupElement.querySelector('.image-popup__caption');
+const imagePopupImageElement = imagePopupElement.querySelector('.image-popup__image');
+const imagePopupCaptionElement = imagePopupElement.querySelector('.image-popup__caption');
+
+const cardTemplate = document.querySelector('#card-template').content.querySelector('.card-grid__item');
 
 /**
  * Храним ссылку на предыдущий обработчик нажатия на кнопку подтверждения модального окна.
@@ -54,17 +57,14 @@ const imagePopupCaption = imagePopupElement.querySelector('.image-popup__caption
  */
 let popupSubmitListener = null;
 
+
 /**
- * Добавляет карточку
+ * Создает карточку
  * @param {*} name имя карточки
  * @param {*} link ссылка на изображение
- * @param {*} inHead добавить в начало списка
  */
-const addCard = function (name, link, inHead = false) {
-
-  // Prepare template
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.card-grid__item').cloneNode(true);
+const createCard = function (name, link) {
+  const cardElement = cardTemplate.cloneNode(true);
   const imageElement = cardElement.querySelector('.card-grid__item-image');
   const nameElement = cardElement.querySelector('.card-grid__item-caption');
   const likeButtonElement = cardElement.querySelector('.card-grid__item-like-button');
@@ -81,7 +81,7 @@ const addCard = function (name, link, inHead = false) {
 
   // Bind delete action
   deleteButtonElement.addEventListener('click', evt => {
-    evt.target.parentElement.remove();
+    cardElement.remove();
   });
 
   // Bind image click action
@@ -89,22 +89,32 @@ const addCard = function (name, link, inHead = false) {
     openImagePopup(name, link);
   });
 
-  // Add to grid
-  if (inHead) {
-    cardContainerElement.prepend(cardElement);
-  } else {
-    cardContainerElement.append(cardElement);
-  }
+  return cardElement;
+}
+
+
+/**
+ * Добавляет карточку
+ * @param {*} name имя карточки
+ * @param {*} link ссылка на изображение
+ */
+const addCard = function (name, link) {
+  const cardElement = createCard(name, link);
+  cardContainerElement.prepend(cardElement);
 }
 
 /**
  * Производит первичную инициализацию списка карточек
  */
 const initCards = function () {
-  initialCards.forEach(item => {
+  initialCards.reverse().forEach(item => {
     addCard(item.name, item.link);
   });
 }
+
+const openPopup = function(popup) {}
+
+const closePopup = function(popup) {}
 
 /**
  * Меняет видимость диалогового окна
@@ -132,7 +142,7 @@ const toggleImagePopupVisibility = function () {
  */
 const openProfileEditingPopup = function () {
   titleElement.textContent = 'Редактировать профиль';
-  submitInput.textContent = 'Сохранить';
+  submitButton.textContent = 'Сохранить';
   nameInput.value = nameElement.textContent;
   nameInput.placeholder = '';
   infoInput.value = aboutElement.textContent;
@@ -154,7 +164,7 @@ const openProfileEditingPopup = function () {
  */
 const openCardAddingPopup = function () {
   titleElement.textContent = 'Новое место';
-  submitInput.textContent = 'Создать';
+  submitButton.textContent = 'Создать';
   nameInput.value = '';
   nameInput.placeholder = 'Название';
   infoInput.value = '';
@@ -162,7 +172,7 @@ const openCardAddingPopup = function () {
 
   popupSubmitListener = (evt) => {
     evt.preventDefault();
-    addCard(nameInput.value, infoInput.value, true);
+    addCard(nameInput.value, infoInput.value);
     togglePopupVisibility();
   };
 
@@ -176,9 +186,8 @@ const openCardAddingPopup = function () {
  * @param {*} link ссылка на изображение
  */
 const openImagePopup = function (name, link) {
-  const imageElement = imagePopupElement.querySelector('.image-popup__image');
-  imageElement.src = link;
-  imagePopupCaption.textContent = name;
+  imagePopupImageElement.src = link;
+  imagePopupCaptionElement.textContent = name;
   toggleImagePopupVisibility();
 }
 
