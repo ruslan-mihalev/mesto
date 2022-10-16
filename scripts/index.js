@@ -40,7 +40,7 @@ const popupCloseButton = popupElement.querySelector('.floating-close-button_popu
 const titleElement = popupElement.querySelector('.popup__title');
 const formElement = popupElement.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_target_name');
-const descriptionInput = formElement.querySelector('.popup__input_target_info');
+const infoInput = formElement.querySelector('.popup__input_target_info');
 const submitInput = formElement.querySelector('.popup__submit');
 
 const imagePopupElement = document.querySelector('.image-popup');
@@ -127,16 +127,16 @@ const toggleImagePopupVisibility = function () {
  */
 const openProfileEditingPopup = function () {
   titleElement.textContent = 'Редактировать профиль';
-  submitInput.value = 'Сохранить';
+  submitInput.textContent = 'Сохранить';
   nameInput.value = nameElement.textContent;
   nameInput.placeholder = '';
-  descriptionInput.value = aboutElement.textContent;
-  descriptionInput.placeholder = '';
+  infoInput.value = aboutElement.textContent;
+  infoInput.placeholder = '';
 
   popupSubmitListener = (evt) => {
     evt.preventDefault();
     nameElement.textContent = nameInput.value;
-    aboutElement.textContent = descriptionInput.value;
+    aboutElement.textContent = infoInput.value;
     togglePopupVisibility();
   };
 
@@ -152,12 +152,12 @@ const openCardAddingPopup = function () {
   submitInput.textContent = 'Создать';
   nameInput.value = '';
   nameInput.placeholder = 'Название';
-  descriptionInput.value = '';
-  descriptionInput.placeholder = 'Ссылка на картинку';
+  infoInput.value = '';
+  infoInput.placeholder = 'Ссылка на картинку';
 
   popupSubmitListener = (evt) => {
     evt.preventDefault();
-    addCard(nameInput.value, descriptionInput.value, true);
+    addCard(nameInput.value, infoInput.value, true);
     togglePopupVisibility();
   };
 
