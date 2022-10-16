@@ -47,6 +47,11 @@ const imagePopupElement = document.querySelector('.image-popup');
 const imagePopupCloseButton = imagePopupElement.querySelector('.floating-close-button_place_image-popup');
 const imagePopupCaption = imagePopupElement.querySelector('.image-popup__caption');
 
+/**
+ * Храним ссылку на предыдущий обработчик нажатия на кнопку подтверждения модального окна.
+ * Это нужно в свизи с тем - что окно переиспользуется в двух сценариях и нужно
+ * отписывать предыдущий обработчик нажатия на кнопку подтверждения, во избежании ложных срабатываний
+ */
 let popupSubmitListener = null;
 
 /**
@@ -171,7 +176,7 @@ const openCardAddingPopup = function () {
  * @param {*} link ссылка на изображение
  */
 const openImagePopup = function (name, link) {
-  let imageElement = imagePopupElement.querySelector('.image-popup__image');
+  const imageElement = imagePopupElement.querySelector('.image-popup__image');
   imageElement.src = link;
   imagePopupCaption.textContent = name;
   toggleImagePopupVisibility();
