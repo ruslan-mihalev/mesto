@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./scripts/index.js" defer></script>
   <title>Mesto</title>
 </head>
 
@@ -37,11 +38,14 @@
 
     <div class="popup" role="dialog" aria-modal="true">
       <div class="popup__container">
-        <button class="floating-close-button floating-close-button_place_popup" type="button" aria-label="Закрыть окно"></button>
+        <button class="floating-close-button floating-close-button_place_popup" type="button"
+          aria-label="Закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popup__form">
-          <input class="popup__input popup__input_target_name" placeholder="Имя" required="true" type="text" id="input-name" name="input-name" >
-          <input class="popup__input popup__input_target_info" placeholder="О себе" required="true" type="text" id="input-aboutme" name="input-aboutme" >
+          <input class="popup__input popup__input_target_name" placeholder="Имя" required="true" type="text"
+            id="input-name" name="input-name">
+          <input class="popup__input popup__input_target_info" placeholder="О себе" required="true" type="text"
+            id="input-aboutme" name="input-aboutme">
           <button class="popup__submit" type="submit">Сохранить</button>
         </form>
       </div>
@@ -49,7 +53,8 @@
 
     <div class="image-popup" role="dialog" aria-modal="true">
       <figure class="image-popup__container">
-        <button class="floating-close-button floating-close-button_place_image-popup" type="button" aria-label="Закрыть окно"></button>
+        <button class="floating-close-button floating-close-button_place_image-popup" type="button"
+          aria-label="Закрыть окно"></button>
         <img class="image-popup__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
         <figcaption class="image-popup__caption">Карачаевск</figcaption>
       </figure>
@@ -68,8 +73,6 @@
       <button class="card-grid__item-delete-button" type="button" aria-label="Удалить карточку"></button>
     </li>
   </template>
-
-  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
