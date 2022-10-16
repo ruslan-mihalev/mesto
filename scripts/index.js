@@ -1,3 +1,6 @@
+/**
+ * Массив с карточками для предзаполнения
+ */
 const initialCards = [
   {
     name: 'Архыз',
@@ -115,7 +118,7 @@ const togglePopupVisibility = function () {
 /**
  * Меняет видимость диалогового окна отображения изображения
  */
- const toggleImagePopupVisibility = function () {
+const toggleImagePopupVisibility = function () {
   imagePopupElement.classList.toggle('image-popup_active');
 }
 
@@ -179,11 +182,13 @@ addButton.addEventListener('click', openCardAddingPopup);
 popupCloseButton.addEventListener('click', togglePopupVisibility);
 imagePopupCloseButton.addEventListener('click', toggleImagePopupVisibility);
 popupElement.addEventListener('click', evt => {
+  // Закрываем попап по нажатию за пределами попапа
   if (evt.target == evt.currentTarget) {
     togglePopupVisibility();
   }
 });
 imagePopupElement.addEventListener('click', evt => {
+  // Закрываем попап по нажатию за пределами попапа
   if (evt.target == evt.currentTarget) {
     toggleImagePopupVisibility();
   }
