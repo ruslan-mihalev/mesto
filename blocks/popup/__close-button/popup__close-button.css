@@ -1,21 +1,21 @@
-.floating-close-button {
+.popup__close-button {
   width: 20px;
   height: 20px;
   position: absolute;
   top: -36px;
   right: 0px;
-  background: url('../../images/icon-close.svg') no-repeat center / cover;
+  background: url('../../../images/icon-close.svg') no-repeat center / cover;
   border: none;
   box-shadow: none;
   cursor: pointer;
 }
 
-.floating-close-button:hover {
+.popup__close-button:hover {
   opacity: 0.6;
 }
 
 @media screen and (min-width: 510px) {
-  .floating-close-button {
+  .popup__close-button {
     width: 32px;
     height: 32px;
     top: -40px;

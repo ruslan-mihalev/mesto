@@ -36,12 +36,12 @@
       <p class="footer__copyrighting">© 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup" role="dialog" aria-modal="true">
+    <div class="popup popup_target_profile" role="dialog" aria-modal="true">
       <div class="popup__container">
-        <button class="floating-close-button floating-close-button_place_popup" type="button"
+        <button class="popup__close-button" type="button"
           aria-label="Закрыть окно"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popup__form">
+          <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input popup__input_target_name" placeholder="Имя" required="true" type="text"
             id="input-name" name="input-name">
           <input class="popup__input popup__input_target_info" placeholder="О себе" required="true" type="text"
@@ -51,12 +51,27 @@
       </div>
     </div>
 
-    <div class="image-popup" role="dialog" aria-modal="true">
-      <figure class="image-popup__container">
-        <button class="floating-close-button floating-close-button_place_image-popup" type="button"
+    <div class="popup popup_target_card" role="dialog" aria-modal="true">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"
           aria-label="Закрыть окно"></button>
-        <img class="image-popup__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-        <figcaption class="image-popup__caption">Карачаевск</figcaption>
+        <form class="popup__form" name="popup__form">
+          <h2 class="popup__title">Новое место</h2>
+          <input class="popup__input popup__input_target_name" placeholder="Название" required="true" type="text"
+            id="input-name" name="input-name">
+          <input class="popup__input popup__input_target_info" placeholder="Ссылка на картинку" required="true" type="text"
+            id="input-aboutme" name="input-aboutme">
+          <button class="popup__submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_target_image" role="dialog" aria-modal="true">
+      <figure class="popup__container">
+        <button class="popup__close-button" type="button"
+          aria-label="Закрыть окно"></button>
+        <img class="popup__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+        <figcaption class="popup__image-caption">Карачаевск</figcaption>
       </figure>
     </div>
   </div>
