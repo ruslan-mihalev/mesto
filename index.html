@@ -19,11 +19,11 @@
         <div class="profile__info">
           <div class="profile__person-name-container">
             <h1 class="profile__person-name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button class="profile__edit-button" type="button" aria-label="Изменить профиль"></button>
           </div>
           <p class="profile__person-about">Исследователь океана</p>
         </div>
-        <button class="profile__add-button" type="button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить карточку"></button>
       </section>
 
       <section class="card-grid" aria-label="Список мест для путешествий">
@@ -37,7 +37,7 @@
 
     <div class="popup" role="dialog" aria-modal="true">
       <div class="popup__container">
-        <button class="floating-close-button floating-close-button_place_popup" type="button"></button>
+        <button class="floating-close-button floating-close-button_place_popup" type="button" aria-label="Закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popup__form">
           <input class="popup__input popup__input_target_name" placeholder="Имя" required="true" type="text" id="input-name" name="input-name" >
@@ -49,7 +49,7 @@
 
     <div class="image-popup" role="dialog" aria-modal="true">
       <figure class="image-popup__container">
-        <button class="floating-close-button floating-close-button_place_image-popup" type="button"></button>
+        <button class="floating-close-button floating-close-button_place_image-popup" type="button" aria-label="Закрыть окно"></button>
         <img class="image-popup__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
         <figcaption class="image-popup__caption">Карачаевск</figcaption>
       </figure>
@@ -63,9 +63,9 @@
       </div>
       <div class="card-grid__item-caption-container">
         <h2 class="card-grid__item-caption">Карачаевск</h2>
-        <button class="card-grid__item-like-button" type="button"></button>
+        <button class="card-grid__item-like-button" type="button" aria-label="Лайк"></button>
       </div>
-      <button class="card-grid__item-delete-button" type="button"></button>
+      <button class="card-grid__item-delete-button" type="button" aria-label="Удалить карточку"></button>
     </li>
   </template>
 
