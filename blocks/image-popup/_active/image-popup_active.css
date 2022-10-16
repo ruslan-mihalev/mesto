@@ -1,0 +1,5 @@
+.image-popup_active {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opasity 0.2s;
+}

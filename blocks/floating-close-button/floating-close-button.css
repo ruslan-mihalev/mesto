@@ -1,4 +1,4 @@
-.popup__close-button {
+.floating-close-button {
   width: 20px;
   height: 20px;
   position: absolute;
@@ -10,12 +10,12 @@
   cursor: pointer;
 }
 
-.popup__close-button:hover {
+.floating-close-button:hover {
   opacity: 0.6;
 }
 
 @media screen and (min-width: 510px) {
-  .popup__close-button {
+  .floating-close-button {
     width: 32px;
     height: 32px;
     top: -40px;

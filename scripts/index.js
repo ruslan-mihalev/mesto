@@ -33,12 +33,16 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const popupElement = document.querySelector('.popup');
-const popupCloseButton = popupElement.querySelector('.popup__close-button');
+const popupCloseButton = popupElement.querySelector('.floating-close-button_popup');
 const titleElement = popupElement.querySelector('.popup__title');
 const formElement = popupElement.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_target_name');
 const descriptionInput = formElement.querySelector('.popup__input_target_info');
 const submitInput = formElement.querySelector('.popup__submit');
+
+const imagePopupElement = document.querySelector('.image-popup');
+const imagePopupCloseButton = imagePopupElement.querySelector('.floating-close-button_image-popup');
+const imagePopupCaption = imagePopupElement.querySelector('.image-popup__caption');
 
 let popupSubmitListener = null;
 
@@ -74,7 +78,7 @@ const addCard = function (name, link, inHead = false) {
 
   // Bind image click action
   imageElement.addEventListener('click', evt => {
-    // TODO
+    openImagePopup(name, link);
   });
 
   // Add to grid
@@ -106,6 +110,13 @@ const togglePopupVisibility = function () {
   }
 
   popupElement.classList.toggle('popup_active');
+}
+
+/**
+ * Меняет видимость диалогового окна отображения изображения
+ */
+ const toggleImagePopupVisibility = function () {
+  imagePopupElement.classList.toggle('image-popup_active');
 }
 
 /**
@@ -151,8 +162,21 @@ const openCardAddingPopup = function () {
   togglePopupVisibility();
 }
 
+/**
+ * Открывает всплывающее окно полноэкранного просмотра изображения
+ * @param {*} name имя карточки
+ * @param {*} link ссылка на изображение
+ */
+const openImagePopup = function (name, link) {
+  let imageElement = imagePopupElement.querySelector('.image-popup__image');
+  imageElement.src = link;
+
+  toggleImagePopupVisibility();
+}
+
 editButton.addEventListener('click', openProfileEditingPopup);
 addButton.addEventListener('click', openCardAddingPopup);
 popupCloseButton.addEventListener('click', togglePopupVisibility);
+imagePopupCloseButton.addEventListener('click', toggleImagePopupVisibility);
 
 initCards();
