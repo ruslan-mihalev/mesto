@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
   <script src="./scripts/index.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
   <title>Mesto</title>
 </head>
 
@@ -42,11 +43,17 @@
           aria-label="Закрыть окно"></button>
         <form class="popup__form" name="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_target_name" placeholder="Имя" required type="text"
+          <label class="popup__field popup__field_targer_name">
+            <input class="popup__input popup__input_target_name" placeholder="Имя" required type="text"
             id="input-name" name="input-name">
-          <input class="popup__input popup__input_target_info" placeholder="О себе" required type="text"
+            <span class="popup__input-error">Вы пропустили это поле.</span>
+          </label>
+          <label class="popup__field popup__field_target_info">
+            <input class="popup__input popup__input_target_info" placeholder="О себе" required type="text"
             id="input-aboutme" name="input-aboutme">
-          <button class="popup__submit" type="submit">Сохранить</button>
+            <span class="popup__input-error">Вы пропустили и это поле.</span>
+          </label>
+          <button class="popup__submit-button" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -57,11 +64,17 @@
           aria-label="Закрыть окно"></button>
         <form class="popup__form" name="popup__form">
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_target_name" placeholder="Название" required type="text"
+          <label class="popup__field popup__field_target_name">
+            <input class="popup__input popup__input_target_name" placeholder="Название" required type="text"
             id="input-card-name" name="input-card-name">
-          <input class="popup__input popup__input_target_info" placeholder="Ссылка на картинку" required type="text"
+            <span class="popup__input-error">Вы пропустили это поле.</span>
+          </label>
+          <label class="popup__field popup__field_target_info">
+            <input class="popup__input popup__input_target_info" placeholder="Ссылка на картинку" required type="text"
             id="input-card-image-link" name="input-card-image-link">
-          <button class="popup__submit" type="submit">Создать</button>
+            <span class="popup__input-error">Введите аддрес сайта.</span>
+          </label>
+          <button class="popup__submit-button" type="submit">Создать</button>
         </form>
       </div>
     </div>

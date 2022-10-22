@@ -201,6 +201,4 @@ window.addEventListener('keydown', (evt) => {
   }
 });
 
-
 initCards();
-onEscClose();
