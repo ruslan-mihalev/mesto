@@ -40,17 +40,17 @@
     <div class="popup popup_target_profile" role="dialog" aria-modal="true">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
-        <form class="popup__form" name="popup__form">
+        <form class="popup__form" name="popup__form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__field popup__field_targer_name">
             <input class="popup__input popup__input_target_name" id="input-name" name="input-name" required type="text"
               minlength="2" maxlength="40" placeholder="Имя">
-            <span class="popup__input-error">Вы пропустили это поле.</span>
+            <span class="popup__input-error input-name-error">Вы пропустили это поле.</span>
           </label>
           <label class="popup__field popup__field_target_info">
             <input class="popup__input popup__input_target_info" id="input-aboutme" name="input-aboutme" required
               type="text" minlength="2" maxlength="200" placeholder="О себе">
-            <span class="popup__input-error">Вы пропустили и это поле.</span>
+            <span class="popup__input-error input-aboutme-error">Вы пропустили и это поле.</span>
           </label>
           <button class="popup__submit-button" type="submit">Сохранить</button>
         </form>
@@ -60,17 +60,17 @@
     <div class="popup popup_target_card" role="dialog" aria-modal="true">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
-        <form class="popup__form" name="popup__form">
+        <form class="popup__form" name="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <label class="popup__field popup__field_target_name">
             <input class="popup__input popup__input_target_name" id="input-card-name" name="input-card-name" required
               type="text" minlength="2" maxlength="30" placeholder="Название">
-            <span class="popup__input-error">Вы пропустили это поле.</span>
+            <span class="popup__input-error input-card-name-error">Вы пропустили это поле.</span>
           </label>
           <label class="popup__field popup__field_target_info">
             <input class="popup__input popup__input_target_info" id="input-card-image-link" name="input-card-image-link"
               required type="url" placeholder="Ссылка на картинку">
-            <span class="popup__input-error">Введите аддрес сайта.</span>
+            <span class="popup__input-error input-card-image-link-error">Введите аддрес сайта.</span>
           </label>
           <button class="popup__submit-button" type="submit">Создать</button>
         </form>
