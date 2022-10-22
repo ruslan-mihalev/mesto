@@ -188,4 +188,19 @@ imagePopupCloseButton.addEventListener('click', () => {
   });
 });
 
+/**
+ * Закроем любой открытый попап по нажатию на клавищу Esc
+ */
+window.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    [profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
+      if (popup.classList.contains('popup_active')) {
+        popup.classList.toggle('popup_active');
+      }
+    });
+  }
+});
+
+
 initCards();
+onEscClose();
