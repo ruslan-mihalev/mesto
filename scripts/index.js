@@ -148,6 +148,11 @@ const initCards = function () {
 editButton.addEventListener('click', () => {
   profilePopupNameInput.value = nameElement.textContent;
   profilePopupAboutInput.value = aboutElement.textContent;
+
+  // Для запуска механизма валидации
+  profilePopupNameInput.dispatchEvent(new Event('input', {bubbles:true}));
+  profilePopupAboutInput.dispatchEvent(new Event('input', {bubbles:true}));
+
   openPopup(profilePopupElement);
   profilePopupNameInput.focus();
 });
