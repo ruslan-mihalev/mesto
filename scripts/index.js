@@ -149,10 +149,14 @@ editButton.addEventListener('click', () => {
   profilePopupNameInput.value = nameElement.textContent;
   profilePopupAboutInput.value = aboutElement.textContent;
   openPopup(profilePopupElement);
+  profilePopupNameInput.focus();
 });
 
 addButton.addEventListener('click', () => {
+  cardPopupNameInput.value = '';
+  cardPopupLinkInput.value = '';
   openPopup(cardPopupElement);
+  cardPopupNameInput.focus();
 });
 
 profilePopupFormElement.addEventListener('submit', evt => {
