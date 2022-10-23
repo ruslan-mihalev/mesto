@@ -1,4 +1,4 @@
-import initCards from './initialCards.js';
+import {initialCards} from './initialCards.js';
 
 /*
  * Компоненты профиля
@@ -41,6 +41,10 @@ const imagePopupCloseButton = imagePopupElement.querySelector('.popup__close-but
 const imagePopupImageElement = imagePopupElement.querySelector('.popup__image');
 const imagePopupCaptionElement = imagePopupElement.querySelector('.popup__image-caption');
 
+/**
+ * Обработчик нажатия 'Esc' для закрытия диалогового окна
+ * @param {*} evt событие клавиатуры
+ */
 let popupCloseListener = evt => {
   if (evt.key === 'Escape') {
     closePopup(popupElement);
@@ -58,9 +62,6 @@ const cardTemplate = document.querySelector('#card-template').content.querySelec
  */
 const openPopup = function (popupElement) {
   popupElement.classList.add('popup_active');
-
-
-
   window.addEventListener('keydown', popupCloseListener);
 }
 
