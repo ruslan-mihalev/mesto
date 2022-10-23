@@ -1,41 +1,12 @@
-/**
- * Массив с карточками для предзаполнения
- */
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
+import initCards from './initialCards.js';
 
 /*
  * Компоненты профиля
  */
 const nameElement = document.querySelector('.profile__person-name');
 const aboutElement = document.querySelector('.profile__person-about');
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+const popupProfileOpenButton = document.querySelector('.profile__edit-button');
+const popupCardOpenButton = document.querySelector('.profile__add-button');
 
 /*
  * Контейнер карточек
@@ -70,7 +41,11 @@ const imagePopupCloseButton = imagePopupElement.querySelector('.popup__close-but
 const imagePopupImageElement = imagePopupElement.querySelector('.popup__image');
 const imagePopupCaptionElement = imagePopupElement.querySelector('.popup__image-caption');
 
-let popupCloseListener = null;
+let popupCloseListener = evt => {
+  if (evt.key === 'Escape') {
+    closePopup(popupElement);
+  }
+};
 
 /**
  * Шаблон для клонирования карточек
@@ -84,11 +59,7 @@ const cardTemplate = document.querySelector('#card-template').content.querySelec
 const openPopup = function (popupElement) {
   popupElement.classList.add('popup_active');
 
-  popupCloseListener = evt => {
-    if (evt.key === 'Escape') {
-      closePopup(popupElement);
-    }
-  };
+
 
   window.addEventListener('keydown', popupCloseListener);
 }
@@ -98,11 +69,7 @@ const openPopup = function (popupElement) {
  * @param {*} popupElement попап
  */
 const closePopup = function (popupElement) {
-  if (popupCloseListener) {
-    window.removeEventListener('keydown', popupCloseListener);
-    popupCloseListener = null;
-  }
-
+  window.removeEventListener('keydown', popupCloseListener);
   popupElement.classList.remove('popup_active');
 }
 
@@ -133,6 +100,7 @@ const createCard = function (name, link) {
   imageElement.addEventListener('click', () => {
     if (imageElement.naturalWidth > 0) {
       imagePopupImageElement.src = link;
+      imagePopupImageElement.alt = name;
       imagePopupCaptionElement.textContent = name;
       openPopup(imagePopupElement);
     }
@@ -160,7 +128,7 @@ const initCards = function () {
   });
 }
 
-editButton.addEventListener('click', () => {
+popupProfileOpenButton.addEventListener('click', () => {
   profilePopupNameInput.value = nameElement.textContent;
   profilePopupAboutInput.value = aboutElement.textContent;
 
@@ -172,7 +140,7 @@ editButton.addEventListener('click', () => {
   profilePopupNameInput.focus();
 });
 
-addButton.addEventListener('click', () => {
+popupCardOpenButton.addEventListener('click', () => {
   cardPopupNameInput.value = '';
   cardPopupLinkInput.value = '';
 
@@ -208,7 +176,7 @@ cardPopupFormElement.addEventListener('submit', evt => {
 });
 
 [profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
-  popup.addEventListener('click', evt => {
+  popup.addEventListener('mousedown', evt => {
     if (evt.target === evt.currentTarget) {
       closePopup(evt.target);
     }
