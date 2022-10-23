@@ -39,15 +39,24 @@
 
     <div class="popup popup_target_profile" role="dialog" aria-modal="true">
       <div class="popup__container">
+        <!-- Кнопка закрытия -->
         <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
+
         <form class="popup__form" name="popup__form" novalidate>
+          <!-- Заголовок -->
           <h2 class="popup__title">Редактировать профиль</h2>
+
+          <!-- Поле ввода имени -->
           <input class="popup__input popup__input_target_name" id="input-name" name="input-name" required type="text"
             minlength="2" maxlength="40" placeholder="Имя">
           <span class="popup__input-error popup__input-error_target_name input-name-error"></span>
+
+          <!-- Полее ввода описания -->
           <input class="popup__input popup__input_target_info" id="input-aboutme" name="input-aboutme" required
             type="text" minlength="2" maxlength="200" placeholder="О себе">
           <span class="popup__input-error popup__input-error_target_info input-aboutme-error"></span>
+
+          <!-- Кнопка подтверждения -->
           <button class="popup__submit-button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -55,15 +64,24 @@
 
     <div class="popup popup_target_card" role="dialog" aria-modal="true">
       <div class="popup__container">
+        <!-- Кнопка закрытия -->
         <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
+
         <form class="popup__form" name="popup__form" novalidate>
+          <!-- Заголовок -->
           <h2 class="popup__title">Новое место</h2>
+
+          <!-- Поле ввода названия -->
           <input class="popup__input popup__input_target_name" id="input-card-name" name="input-card-name" required
             type="text" minlength="2" maxlength="30" placeholder="Название">
           <span class="popup__input-error popup__input-error_target_name input-card-name-error"></span>
+
+          <!-- Поле ввода ссылки на изображение -->
           <input class="popup__input popup__input_target_info" id="input-card-image-link" name="input-card-image-link"
             required type="url" placeholder="Ссылка на картинку">
           <span class="popup__input-error popup__input-error_target_info input-card-image-link-error"></span>
+
+          <!-- Кнопка подтверждения -->
           <button class="popup__submit-button" type="submit">Создать</button>
         </form>
       </div>
@@ -71,8 +89,13 @@
 
     <div class="popup popup_target_image" role="dialog" aria-modal="true">
       <figure class="popup__container">
+        <!-- Кнопка закрытия -->
         <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
+
+        <!-- Изображение -->
         <img class="popup__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+
+        <!-- Подпись к изображению -->
         <figcaption class="popup__image-caption">Карачаевск</figcaption>
       </figure>
     </div>
