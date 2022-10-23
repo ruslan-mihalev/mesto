@@ -1,9 +1,0 @@
-.popup__field_target_info {
-  margin: 0 0 25px 0;
-}
-
-@media screen and (min-width: 468px) {
-  .popup__field_target_info {
-    margin: 0 0 28px 0;
-  }
-}
