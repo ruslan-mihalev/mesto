@@ -70,6 +70,8 @@ const imagePopupCloseButton = imagePopupElement.querySelector('.popup__close-but
 const imagePopupImageElement = imagePopupElement.querySelector('.popup__image');
 const imagePopupCaptionElement = imagePopupElement.querySelector('.popup__image-caption');
 
+let popupCloseListener = null;
+
 /**
  * Шаблон для клонирования карточек
  */
@@ -80,7 +82,15 @@ const cardTemplate = document.querySelector('#card-template').content.querySelec
  * @param {*} popupElement попап
  */
 const openPopup = function (popupElement) {
-  popupElement.classList.toggle('popup_active');
+  popupElement.classList.add('popup_active');
+
+  popupCloseListener = evt => {
+    if (evt.key === 'Escape') {
+      closePopup(popupElement);
+    }
+  };
+
+  window.addEventListener('keydown', popupCloseListener);
 }
 
 /**
@@ -88,7 +98,12 @@ const openPopup = function (popupElement) {
  * @param {*} popupElement попап
  */
 const closePopup = function (popupElement) {
-  popupElement.classList.toggle('popup_active');
+  if (popupCloseListener) {
+    window.removeEventListener('keydown', popupCloseListener);
+    popupCloseListener = null;
+  }
+
+  popupElement.classList.remove('popup_active');
 }
 
 /**
@@ -148,11 +163,25 @@ const initCards = function () {
 editButton.addEventListener('click', () => {
   profilePopupNameInput.value = nameElement.textContent;
   profilePopupAboutInput.value = aboutElement.textContent;
+
+  // Для запуска механизма валидации
+  profilePopupNameInput.dispatchEvent(new Event('input', { bubbles: true }));
+  profilePopupAboutInput.dispatchEvent(new Event('input', { bubbles: true }));
+
   openPopup(profilePopupElement);
+  profilePopupNameInput.focus();
 });
 
 addButton.addEventListener('click', () => {
+  cardPopupNameInput.value = '';
+  cardPopupLinkInput.value = '';
+
+  // Для запуска механизма валидации
+  cardPopupNameInput.dispatchEvent(new Event('input', { bubbles: true }));
+  cardPopupLinkInput.dispatchEvent(new Event('input', { bubbles: true }));
+
   openPopup(cardPopupElement);
+  cardPopupNameInput.focus();
 });
 
 profilePopupFormElement.addEventListener('submit', evt => {
@@ -186,6 +215,19 @@ imagePopupCloseButton.addEventListener('click', () => {
       closePopup(evt.target);
     }
   });
+});
+
+/**
+ * Закроем любой открытый попап по нажатию на клавищу Esc
+ */
+window.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    [profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
+      if (popup.classList.contains('popup_active')) {
+        popup.classList.toggle('popup_active');
+      }
+    });
+  }
 });
 
 initCards();

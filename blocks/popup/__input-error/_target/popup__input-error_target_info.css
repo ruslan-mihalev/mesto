@@ -1,0 +1,9 @@
+.popup__input-error_target_info {
+  margin: 0 0 14px 0;
+}
+
+@media screen and (min-width: 468px) {
+  .popup__input-error_target_info {
+    margin: 0 0 16px 0;
+  }
+}
