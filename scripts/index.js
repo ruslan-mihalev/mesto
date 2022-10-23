@@ -197,16 +197,14 @@ cardPopupFormElement.addEventListener('submit', evt => {
   closePopup(cardPopupElement);
 });
 
-profilePopupCloseButton.addEventListener('click', () => {
-  closePopup(profilePopupElement);
-});
-
-cardPopupCloseButton.addEventListener('click', () => {
-  closePopup(cardPopupElement);
-});
-
-imagePopupCloseButton.addEventListener('click', () => {
-  closePopup(imagePopupElement);
+[
+  [profilePopupCloseButton, profilePopupElement],
+  [cardPopupCloseButton, cardPopupElement],
+  [imagePopupCloseButton, imagePopupElement]
+].forEach(pair => {
+  pair[0].addEventListener('click', () => {
+    closePopup(pair[1]);
+  });
 });
 
 [profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
@@ -215,19 +213,6 @@ imagePopupCloseButton.addEventListener('click', () => {
       closePopup(evt.target);
     }
   });
-});
-
-/**
- * Закроем любой открытый попап по нажатию на клавищу Esc
- */
-window.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    [profilePopupElement, cardPopupElement, imagePopupElement].forEach(popup => {
-      if (popup.classList.contains('popup_active')) {
-        popup.classList.toggle('popup_active');
-      }
-    });
-  }
 });
 
 initCards();
