@@ -1,4 +1,9 @@
-import {initialCards} from './initialCards.js';
+import { initialCards } from './initialCards.js';
+
+/**
+ * Символьный код клавиши 'Escape'
+ */
+const ESC_CODE = 'Escape';
 
 /*
  * Компоненты профиля
@@ -42,16 +47,6 @@ const imagePopupImageElement = imagePopupElement.querySelector('.popup__image');
 const imagePopupCaptionElement = imagePopupElement.querySelector('.popup__image-caption');
 
 /**
- * Обработчик нажатия 'Esc' для закрытия диалогового окна
- * @param {*} evt событие клавиатуры
- */
-let popupCloseListener = evt => {
-  if (evt.key === 'Escape') {
-    closePopup(popupElement);
-  }
-};
-
-/**
  * Шаблон для клонирования карточек
  */
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card-grid__item');
@@ -73,6 +68,17 @@ const closePopup = function (popupElement) {
   window.removeEventListener('keydown', popupCloseListener);
   popupElement.classList.remove('popup_active');
 }
+
+/**
+ * Обработчик нажатия 'Esc' для закрытия диалогового окна
+ * @param {*} evt событие клавиатуры
+ */
+const popupCloseListener = evt => {
+  if (evt.key === ESC_CODE) {
+    const openedPopup = document.querySelector('.popup_active');
+    closePopup(openedPopup);
+  }
+};
 
 /**
  * Создает карточку
