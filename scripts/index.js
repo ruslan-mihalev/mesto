@@ -23,7 +23,6 @@ const cardContainerElement = document.querySelector('.card-grid__container');
  */
 const profilePopupElement = document.querySelector('.popup_target_profile');
 const profilePopupCloseButton = profilePopupElement.querySelector('.popup__close-button');
-const profilePopupTitleElement = profilePopupElement.querySelector('.popup__title');
 const profilePopupFormElement = profilePopupElement.querySelector('.popup__form');
 const profilePopupNameInput = profilePopupFormElement.querySelector('.popup__input_target_name');
 const profilePopupAboutInput = profilePopupFormElement.querySelector('.popup__input_target_info');
@@ -33,7 +32,6 @@ const profilePopupAboutInput = profilePopupFormElement.querySelector('.popup__in
  */
 const cardPopupElement = document.querySelector('.popup_target_card');
 const cardPopupCloseButton = cardPopupElement.querySelector('.popup__close-button');
-const cardPopupTitleElement = cardPopupElement.querySelector('.popup__title');
 const cardPopupFormElement = cardPopupElement.querySelector('.popup__form');
 const cardPopupNameInput = cardPopupFormElement.querySelector('.popup__input_target_name');
 const cardPopupLinkInput = cardPopupFormElement.querySelector('.popup__input_target_info');
