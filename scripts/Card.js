@@ -16,10 +16,10 @@ class Card {
 
   _getTemplate() {
     return document
-    .querySelector(this._templateSelector)
-    .content
-    .querySelector('.card-grid__item')
-    .cloneNode(true);
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector('.card-grid__item')
+      .cloneNode(true);
   }
 
   _like() {
@@ -37,13 +37,6 @@ class Card {
     this._popupHandler.openPopup(imagePopupElement);
   }
 
-  _handleClosePopup() {
-    this._popupHandler.closePopup(imagePopupElement);
-    imagePopupImageElement.src = '';
-    imagePopupImageElement.alt = '';
-    imagePopupCaptionElement.textContent = '';
-  }
-
   _setEventListeners() {
     this._likeButtonElement.addEventListener('click', () => {
       this._like();
@@ -51,16 +44,13 @@ class Card {
 
     this._deleteButtonElement.addEventListener('click', () => {
       this._delete();
+      this._cardElement = null;
     });
 
     this._imageElement.addEventListener('click', () => {
       if (this._imageElement.naturalWidth > 0) {
         this._handleOpenPopup();
       }
-    });
-
-    imagePopupCloseButton.addEventListener('click', () => {
-      this._handleClosePopup();
     });
   }
 

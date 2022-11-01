@@ -39,6 +39,19 @@ const cardPopupNameInput = cardPopupFormElement.querySelector('.popup__input_tar
 const cardPopupLinkInput = cardPopupFormElement.querySelector('.popup__input_target_info');
 
 /**
+ * Валидация ввода форм
+ */
+const formValidationProperties = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+};
+const profileFormValidator = new FormValidator(formValidationProperties, profilePopupFormElement);
+const cardFormValidator = new FormValidator(formValidationProperties, cardPopupFormElement);
+
+/**
  * Класс для переиспользования логики открытия / закрытия popup-ов
  */
 class PopupHandler {
@@ -150,20 +163,5 @@ cardPopupFormElement.addEventListener('submit', evt => {
 });
 
 initCards();
-
-const enableValidation = (properties) => {
-  const formList = Array.from(document.querySelectorAll(properties.formSelector));
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(properties, formElement);
-    formValidator.enableValidation();
-  });
-};
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-});
+profileFormValidator.enableValidation();
+cardFormValidator.enableValidation();
