@@ -1,6 +1,9 @@
 # Проект: Место
 ### Предназначение
-Аттесстационный проект 4го и 5го спринта курса [Web-разработчик](https://practicum.yandex.ru/web/).
+Аттесстационный проект промежуточных спринтов курса [Web-разработчик](https://practicum.yandex.ru/web/).
+
+[По этой ссылке вы можете ознакомиться с результатом работы на Github Pages](https://ruslan-mihalev.github.io/mesto/)
+
 
 **Фукционал**
 * Редактирование информации в профиле пользователя
@@ -31,4 +34,43 @@
 * form
 * JavaScript
 
-[По этой ссылке вы можете ознакомиться с результатом работы на Github Pages](https://ruslan-mihalev.github.io/mesto/)
+Для сборки проекта использовано окружение NodeJS, пакетный менеджер NPM и сборщик Webpack.
+Если хотите так-же - привожу список команд установки пакетов ниже:
+
+#### Инициализация NPM окружения проекта
+
+```npm init --yes```
+
+#### Установка сборщика Webpack
+
+```npm i webpack --save-dev```
+
+#### Очистка содержимого папки после каждой сборки
+
+```npm i clean-webpack-plugin --save-dev```
+
+#### Транспилияция JavaScript кода
+
+```npm i @babel/core --save-dev```
+```npm i @babel/preset-env --save-dev```
+```npm i core-js --save```
+```npm i babel-loader --save-dev```
+
+#### Обработка HTML
+
+```npm i html-webpack-plugin --save-dev```
+
+####  Обработка шрифтов и изображений доступна из коробки и не требует установки дополнительных плагинов
+
+#### Обработка CSS
+
+```npm i css-loader --save-dev```
+```npm i mini-css-extract-plugin --save-dev```
+
+
+#### PostCSS + минификация + вендорные префиксы*
+
+```npm i postcss-loader --save-dev```
+```npm i autoprefixer --save-dev```
+```npm i cssnano --save-dev```
+

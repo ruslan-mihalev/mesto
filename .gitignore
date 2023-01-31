@@ -3,3 +3,12 @@
 
 # VS Code
 *.code-workspace
+
+# JetBrains IDEs
+.idea
+
+# NodeJS
+node_modules
+
+# Other
+dist

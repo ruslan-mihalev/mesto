@@ -1,25 +1,12 @@
 /*
  * Попап просмотра изображения
  */
-const imagePopupElement = document.querySelector('.popup_target_image');
-const imagePopupCloseButton = imagePopupElement.querySelector('.popup__close-button');
-const imagePopupImageElement = imagePopupElement.querySelector('.popup__image');
-const imagePopupCaptionElement = imagePopupElement.querySelector('.popup__image-caption');
-
-class Card {
-  constructor(name, link, templateSelector, popupHandler) {
+export default class Card {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
-    this._popupHandler = popupHandler;
-  }
-
-  _getTemplate() {
-    return document
-      .querySelector(this._templateSelector)
-      .content
-      .querySelector('.card-grid__item')
-      .cloneNode(true);
+    this._handleCardClick = handleCardClick;
   }
 
   _like() {
@@ -31,10 +18,7 @@ class Card {
   }
 
   _handleOpenPopup() {
-    imagePopupImageElement.src = this._link;
-    imagePopupImageElement.alt = this._name;
-    imagePopupCaptionElement.textContent = this._name;
-    this._popupHandler.openPopup(imagePopupElement);
+    this._handleCardClick({name: this._name, link: this._link});
   }
 
   _setEventListeners() {
@@ -54,6 +38,14 @@ class Card {
     });
   }
 
+  _getTemplate() {
+    return document
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector('.card-grid__item')
+      .cloneNode(true);
+  }
+
   generateCard() {
     this._cardElement = this._getTemplate();
 
@@ -71,5 +63,3 @@ class Card {
     return this._cardElement;
   }
 }
-
-export { Card, imagePopupElement, imagePopupCloseButton, imagePopupImageElement, imagePopupCaptionElement };

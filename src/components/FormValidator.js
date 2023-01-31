@@ -13,7 +13,6 @@ class FormValidator {
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
-    console.log(errorMessage);
   }
 
   _hideInputError(inputElement) {
