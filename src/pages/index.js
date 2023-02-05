@@ -1,6 +1,6 @@
 import './index.css';
 
-import { initialUserInfo, initialCards, userInfoSelectors, formSelectors} from '../utils/constants';
+import {initialUserInfo, initialCards, userInfoSelectors, formSelectors} from '../utils/constants';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator';
 import Section from '../components/Section';
@@ -8,8 +8,9 @@ import UserInfo from '../components/UserInfo';
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 
-const openProfilePopupButton = document.querySelector('.profile__edit-button');
-const openCardPopupButton = document.querySelector('.profile__add-button');
+/**
+ * Описываем логику редактирования профиля
+ */
 
 const userInfo = new UserInfo(userInfoSelectors);
 userInfo.setUserInfo(initialUserInfo);
@@ -20,33 +21,53 @@ const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) =>
 profilePopup.setEventListeners();
 const profileFormValidator = new FormValidator(formSelectors, profilePopup.getFormElement());
 profileFormValidator.enableValidation();
+
+const openProfilePopupButton = document.querySelector('.profile__edit-button');
 openProfilePopupButton.addEventListener('click', () => {
-  profilePopup.open(userInfo.getUserInfo());
+  const {name, details} = userInfo.getUserInfo();
+  profilePopup.fill({'input-name': name, 'input-aboutme': details});
+  profileFormValidator.resetValidation();
+  profilePopup.open();
 });
+
+
+/*
+ * Описываем логику отображения списка карточек
+ */
 
 const imagePopup = new PopupWithImage('.popup_target_image');
 imagePopup.setEventListeners();
 
+function createCard(name, link) {
+  const card = new Card(name, link, '#card-template', (itemInfo) => {
+    imagePopup.open(itemInfo);
+  })
+  return card.generateCard();
+}
+
 const cardSection = new Section({
   items: initialCards.reverse(), renderer: (item) => {
-    const { name, link } = item;
-    const card = new Card(name, link, '#card-template', (itemInfo) => {
-      imagePopup.open(itemInfo);
-    });
-    cardSection.addItem(card.generateCard());
+    const {name, link} = item;
+    cardSection.addItem(createCard(name, link));
   }
 }, '.card-grid__container');
 cardSection.render();
 
+
+/*
+ * Описываем логику добавления новой карточки
+ */
+
 const cardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
-  const card = new Card(inputValues['input-card-name'], inputValues['input-card-image-link'], '#card-template', (itemInfo) => {
-    imagePopup.open(itemInfo);
-  });
-  cardSection.addItem(card.generateCard());
+  cardSection.addItem(createCard(inputValues['input-card-name'], inputValues['input-card-image-link']));
 });
 cardPopup.setEventListeners();
+
+const openCardPopupButton = document.querySelector('.profile__add-button');
 openCardPopupButton.addEventListener('click', () => {
+  cardFormValidator.resetValidation();
   cardPopup.open();
 });
+
 const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElement());
 cardFormValidator.enableValidation();

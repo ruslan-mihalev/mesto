@@ -5,30 +5,37 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._handleFormSubmit = handleFormSubmit;
     this._formElement = this._popupElement.querySelector('.popup__form');
+    this._inputDict = this._createInputDict();
+  }
+
+  /**
+   * Создает словарь input-ов, что облегчает как инициализацию так и получение значений полей ввода
+   */
+  _createInputDict() {
+    const inputDict = {};
+    const inputList = this._formElement.querySelectorAll('.popup__input');
+    inputList.forEach(input => {
+      inputDict[input.name] = input;
+    });
+    return inputDict;
   }
 
   _getInputValues() {
     const formValues = {};
-    this._formElement
-      .querySelectorAll('.popup__input')
-      .forEach(input => {
-        formValues[input.name] = input.value;
-      })
+    for (const name in this._inputDict) {
+      formValues[name] = this._inputDict[name].value;
+    }
     return formValues;
   }
 
-  open({name = '', details = ''} = {}) {
-    this._input_name = this._formElement.querySelector('.popup__input_target_name');
-    this._input_details = this._formElement.querySelector('.popup__input_target_info');
-    this._input_name.value = name;
-    this._input_details.value = details;
+  fill(inputValues = {}) {
+    for (const name in inputValues) {
+      this._inputDict[name].value = inputValues[name];
+    }
+  }
 
+  open() {
     super.open();
-
-    // Для запуска механизма валидации до пользовательского ввода
-    // (без этого пользователь запросто сохранит пустую карточку)
-    this._input_name.dispatchEvent(new Event('input', {bubbles: true}));
-    this._input_details.dispatchEvent(new Event('input', {bubbles: true}));
   }
 
   close() {

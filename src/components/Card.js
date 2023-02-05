@@ -15,10 +15,7 @@ export default class Card {
 
   _delete() {
     this._cardElement.remove();
-  }
-
-  _handleOpenPopup() {
-    this._handleCardClick({name: this._name, link: this._link});
+    this._cardElement = null;
   }
 
   _setEventListeners() {
@@ -28,12 +25,11 @@ export default class Card {
 
     this._deleteButtonElement.addEventListener('click', () => {
       this._delete();
-      this._cardElement = null;
     });
 
     this._imageElement.addEventListener('click', () => {
       if (this._imageElement.naturalWidth > 0) {
-        this._handleOpenPopup();
+        this._handleCardClick({name: this._name, link: this._link});
       }
     });
   }

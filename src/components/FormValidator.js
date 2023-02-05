@@ -8,6 +8,17 @@ class FormValidator {
     this._formElement = formElement;
   }
 
+  /**
+   * Сбрасывает ошибки валидаци и состояние кнопки сохранения
+   */
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach(inputElement => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
@@ -31,7 +42,9 @@ class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((inputElement) => { return !inputElement.validity.valid; })
+    return this._inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    })
   }
 
   _toggleButtonState() {
@@ -56,10 +69,6 @@ class FormValidator {
   }
 
   enableValidation() {
-    this._formElement.addEventListener('submit', evt => {
-      evt.preventDefault();
-    });
-
     this._setEventListeners();
   }
 }

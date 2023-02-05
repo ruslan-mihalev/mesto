@@ -1,9 +1,4 @@
 /**
- * Символьный код клавиши 'Escape'
- */
-export const ESC_CODE = 'Escape';
-
-/**
  * Начальная информация профиля пользователя
  * @type {{name: string, about: string}}
  */

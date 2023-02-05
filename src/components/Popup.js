@@ -1,5 +1,3 @@
-import { ESC_CODE } from "../utils/constants";
-
 export default class Popup {
   constructor(selector) {
     this._popupElement = document.querySelector(selector);
@@ -33,7 +31,7 @@ export default class Popup {
    * Логика закрытия попапа клавишей Esc
    */
   _handleEscClose(event) {
-    if (event.key === ESC_CODE) {
+    if (event.key === 'Escape') {
       this.close();
     }
   }
