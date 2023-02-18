@@ -1,35 +1,29 @@
 import './index.css';
+import Api from '../components/Api';
 
-import {initialUserInfo, initialCards, userInfoSelectors, formSelectors} from '../utils/constants';
+import {userInfoSelectors, formSelectors} from '../utils/constants';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator';
 import Section from '../components/Section';
 import UserInfo from '../components/UserInfo';
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
+
+const cohortId = 'cohort-62';
+const token = '66420b20-5df2-413b-bc85-90b83b50056d';
+const baseUrl = `https://mesto.nomoreparties.co/v1/${cohortId}`;
+const headers = {
+  'authorization': token, 'Content-Type': 'application/json'
+};
+const api = new Api({baseUrl, headers});
+
 
 /**
  * Описываем логику редактирования профиля
  */
 
 const userInfo = new UserInfo(userInfoSelectors);
-userInfo.setUserInfo(initialUserInfo);
-
-const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) => {
-  userInfo.setUserInfo({name: inputValues['input-name'], details: inputValues['input-aboutme']});
-});
-profilePopup.setEventListeners();
-const profileFormValidator = new FormValidator(formSelectors, profilePopup.getFormElement());
-profileFormValidator.enableValidation();
-
-const openProfilePopupButton = document.querySelector('.profile__edit-button');
-openProfilePopupButton.addEventListener('click', () => {
-  const {name, details} = userInfo.getUserInfo();
-  profilePopup.fill({'input-name': name, 'input-aboutme': details});
-  profileFormValidator.resetValidation();
-  profilePopup.open();
-});
-
 
 /*
  * Описываем логику отображения списка карточек
@@ -38,20 +32,90 @@ openProfilePopupButton.addEventListener('click', () => {
 const imagePopup = new PopupWithImage('.popup_target_image');
 imagePopup.setEventListeners();
 
-function createCard(name, link) {
-  const card = new Card(name, link, '#card-template', (itemInfo) => {
-    imagePopup.open(itemInfo);
-  })
-  return card.generateCard();
+let localCards = [];
+let cardSection;
+
+function updateCardSection() {
+  cardSection = new Section({
+    items: localCards,
+    renderer: (item) => {
+      cardSection.addItem(createCard(item));
+    }
+  }, '.card-grid__container');
+  cardSection.render();
 }
 
-const cardSection = new Section({
-  items: initialCards.reverse(), renderer: (item) => {
-    const {name, link} = item;
-    cardSection.addItem(createCard(name, link));
-  }
-}, '.card-grid__container');
-cardSection.render();
+function updateLocalCards(newCards) {
+  localCards = newCards;
+  updateCardSection();
+}
+
+function updateLocalCard(card) {
+  localCards = localCards.map(item => {
+    if (item._id === card._id) {
+      return { ...item, ...card };
+    } else {
+      return item;
+    }
+  });
+  updateCardSection();
+}
+
+function addLocalCard(newCard) {
+  localCards.unshift(newCard);
+  updateCardSection();
+}
+
+function deleteLocalCard(cardId) {
+  localCards = localCards.filter(item => item._id !== cardId);
+  updateCardSection();
+}
+
+const deleteCardPopup = new PopupWithConfirmation('.popup_target_confirmation', (cardId) => {
+  api.deleteCard(cardId)
+    .then(updatedCardInfo => {
+      deleteLocalCard(cardId);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  deleteCardPopup.close();
+});
+deleteCardPopup.setEventListeners();
+
+function cardDeleteHandler(cardId) {
+  deleteCardPopup.open(cardId);
+}
+
+function cardClickHandler(cardInfo) {
+  imagePopup.open(cardInfo);
+}
+
+function cardLikeHandler(cardId, enable) {
+  api.like(cardId, enable)
+    .then(updatedCardInfo => {
+      updateLocalCard({ _id: cardId, ...updatedCardInfo });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+function createCard(cardInfo) {
+  const {_id: cardId, name, link, likes, owner: { _id: ownerId}} = cardInfo;
+  const { _id: userId } = userInfo.getUserInfo();
+  const likedByMe = likes.filter(item => item._id === userId).length > 0;
+  const allLikes = likes.length;
+  const canDelete = ownerId === userId;
+  const card = new Card({
+    cardId, name, link, likedByMe, allLikes, canDelete,
+    templateSelector: '#card-template',
+    handleCardClick: cardClickHandler,
+    handleCardLike: cardLikeHandler,
+    handleCardDelete: cardDeleteHandler
+  });
+  return card.generateCard();
+}
 
 
 /*
@@ -59,7 +123,21 @@ cardSection.render();
  */
 
 const cardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
-  cardSection.addItem(createCard(inputValues['input-card-name'], inputValues['input-card-image-link']));
+  cardPopup.setSubmitButtonText('Создание...');
+  const name = inputValues['input-card-name'];
+  const link = inputValues['input-card-image-link'];
+  api.addCard({ name, link })
+    .then(updatedCardInfo => {
+     addLocalCard(updatedCardInfo);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      cardPopup.close();
+      cardPopup.setSubmitButtonText('Создать');
+    });
+
 });
 cardPopup.setEventListeners();
 
@@ -71,3 +149,77 @@ openCardPopupButton.addEventListener('click', () => {
 
 const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElement());
 cardFormValidator.enableValidation();
+
+
+function loadCards(userId) {
+  api.getCards()
+    .then(json => {
+      updateLocalCards(json);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+api.getUser()
+  .then(profileInfo => {
+    userInfo.setUserInfo(profileInfo);
+    loadCards(profileInfo._id);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+
+const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) => {
+  profilePopup.setSubmitButtonText('Сохранение...');
+  api.setUser({name: inputValues['input-name'], about: inputValues['input-aboutme']})
+    .then(json => {
+      userInfo.setUserInfo(json);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      profilePopup.close();
+      profilePopup.setSubmitButtonText('Сохранить');
+    });
+});
+profilePopup.setEventListeners();
+const profileFormValidator = new FormValidator(formSelectors, profilePopup.getFormElement());
+profileFormValidator.enableValidation();
+
+const openProfilePopupButton = document.querySelector('.profile__edit-button');
+openProfilePopupButton.addEventListener('click', () => {
+  const { name, about } = userInfo.getUserInfo();
+  profilePopup.fill({'input-name': name, 'input-aboutme': about});
+  profileFormValidator.resetValidation();
+  profilePopup.open();
+});
+
+const avatarPopup = new PopupWithForm('.popup_target_avatar', (inputValues) => {
+  avatarPopup.setSubmitButtonText('Сохранение...');
+  api.setAvatar(inputValues['input-profile-avatar-link'])
+    .then(json => {
+      const newUserInfo = {...userInfo.getUserInfo(), ...json};
+      userInfo.setUserInfo(newUserInfo);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      avatarPopup.close();
+      avatarPopup.setSubmitButtonText('Сохранить');
+    });
+});
+avatarPopup.setEventListeners();
+const avatarFormValidator = new FormValidator(formSelectors, avatarPopup.getFormElement());
+avatarFormValidator.enableValidation();
+
+const openAvatarPopupButton = document.querySelector('.profile__avatar-container');
+openAvatarPopupButton.addEventListener('click', () => {
+  const { avatar } = userInfo.getUserInfo();
+  avatarPopup.fill({'input-profile-avatar-link': avatar});
+  avatarFormValidator.resetValidation();
+  avatarPopup.open();
+});

@@ -14,13 +14,16 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/cousteau-photo.jpg')%>" alt="Ваш аватар">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" src="<%=require('./images/cousteau-photo.jpg')%>" alt="Ваш аватар">
+          <button class="profile__avatar-edit-hint" type="button" aria-label="Изменить аватар пользователя"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__person-name-container">
-            <h1 class="profile__person-name"></h1>
+            <h1 class="profile__person-name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button" aria-label="Изменить профиль"></button>
           </div>
-          <p class="profile__person-about"></p>
+          <p class="profile__person-about">Исследователь океана</p>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить карточку"></button>
       </section>
@@ -84,6 +87,41 @@
       </div>
     </div>
 
+    <div class="popup popup_target_avatar" role="dialog" aria-modal="true">
+      <div class="popup__container">
+        <!-- Кнопка закрытия -->
+        <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
+
+        <form class="popup__form" name="adding_card_popup__form" novalidate>
+          <!-- Заголовок -->
+          <h2 class="popup__title">Обновить аватар</h2>
+
+          <!-- Поле ввода ссылки на аватар -->
+          <input class="popup__input popup__input_target_avatar" id="input-profile-avatar-link" name="input-profile-avatar-link"
+                 required type="url" placeholder="Ссылка на картинку">
+          <span class="popup__input-error popup__input-error_target_avatar input-profile-avatar-link-error"></span>
+
+          <!-- Кнопка подтверждения -->
+          <button class="popup__submit-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_target_confirmation" role="dialog" aria-modal="true">
+      <div class="popup__container">
+        <!-- Кнопка закрытия -->
+        <button class="popup__close-button" type="button" aria-label="Закрыть окно"></button>
+
+        <form class="popup__form" name="adding_card_popup__form" novalidate>
+          <!-- Заголовок -->
+          <h2 class="popup__title">Вы уверены?</h2>
+
+          <!-- Кнопка подтверждения -->
+          <button class="popup__submit-button" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup_target_image" role="dialog" aria-modal="true">
       <figure class="popup__container">
         <!-- Кнопка закрытия -->
@@ -105,9 +143,12 @@
       </div>
       <div class="card-grid__item-caption-container">
         <h2 class="card-grid__item-caption">Карачаевск</h2>
-        <button class="card-grid__item-like-button" type="button" aria-label="Лайк"></button>
+        <div class="card-grid__item-like-button-container">
+          <button class="card-grid__item-like-button" type="button" aria-label="Лайк"></button>
+          <span class="card-grid__item-like-count">0</span>
+        </div>
       </div>
-      <button class="card-grid__item-delete-button" type="button" aria-label="Удалить карточку"></button>
+      <button class="card-grid__item-delete-button card-grid__item-delete-button_active" type="button" aria-label="Удалить карточку"></button>
     </li>
   </template>
 </body>

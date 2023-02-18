@@ -3,20 +3,25 @@
  * Содержит логику изменения информации в профиле пользователя.
  */
 export default class UserInfo {
-  constructor({ nameSelector, detailsSelector }) {
+  constructor({ nameSelector, detailsSelector, avatarSelector }) {
     this._nameElement = document.querySelector(nameSelector);
     this._detailsElement = document.querySelector(detailsSelector);
+    this._avatarElement = document.querySelector(avatarSelector)
   }
 
   getUserInfo() {
-    return {
-      name: this._nameElement.textContent,
-      details: this._detailsElement.textContent
-    }
+    return this._profile;
   }
 
-  setUserInfo({ name, details }) {
+  setUserInfo(profile) {
+    this._profile = profile;
+    this._updateUI();
+  }
+
+  _updateUI() {
+    const { name, about, avatar } = this._profile;
     this._nameElement.textContent = name;
-    this._detailsElement.textContent = details;
+    this._detailsElement.textContent = about;
+    this._avatarElement.src = avatar;
   }
 }
