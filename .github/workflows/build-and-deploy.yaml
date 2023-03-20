@@ -6,17 +6,20 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Ceckout
+      - name: Checkout
         uses: actions/checkout@v3
-
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
       - name: Install and Build
         run: |
-          nvm install
-          npm ci
-          npm run build
-
+          yarn install
+          yarn build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
-
