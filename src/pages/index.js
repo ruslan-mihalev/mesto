@@ -129,12 +129,12 @@ const cardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
   api.addCard({ name, link })
     .then(updatedCardInfo => {
      addLocalCard(updatedCardInfo);
+      cardPopup.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      cardPopup.close();
       cardPopup.setSubmitButtonText('Создать');
     });
 
@@ -176,12 +176,12 @@ const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) =>
   api.setUser({name: inputValues['input-name'], about: inputValues['input-aboutme']})
     .then(json => {
       userInfo.setUserInfo(json);
+      profilePopup.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      profilePopup.close();
       profilePopup.setSubmitButtonText('Сохранить');
     });
 });
@@ -203,12 +203,12 @@ const avatarPopup = new PopupWithForm('.popup_target_avatar', (inputValues) => {
     .then(json => {
       const newUserInfo = {...userInfo.getUserInfo(), ...json};
       userInfo.setUserInfo(newUserInfo);
+      avatarPopup.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      avatarPopup.close();
       avatarPopup.setSubmitButtonText('Сохранить');
     });
 });
@@ -218,8 +218,6 @@ avatarFormValidator.enableValidation();
 
 const openAvatarPopupButton = document.querySelector('.profile__avatar-container');
 openAvatarPopupButton.addEventListener('click', () => {
-  const { avatar } = userInfo.getUserInfo();
-  avatarPopup.fill({'input-profile-avatar-link': avatar});
   avatarFormValidator.resetValidation();
   avatarPopup.open();
 });
