@@ -40,51 +40,21 @@ let cardSection = new Section({
   }
 }, '.card-grid__container');
 
-let localCards = [];
-function updateCardSection() {
-  cardSection.renderItems(localCards);
-}
-
-function updateLocalCards(newCards) {
-  localCards = newCards;
-  updateCardSection();
-}
-
-function updateLocalCard(card) {
-  localCards = localCards.map(item => {
-    if (item._id === card._id) {
-      return { ...item, ...card };
-    } else {
-      return item;
-    }
-  });
-  updateCardSection();
-}
-
-function addLocalCard(newCard) {
-  localCards.unshift(newCard);
-  updateCardSection();
-}
-
-function deleteLocalCard(cardId) {
-  localCards = localCards.filter(item => item._id !== cardId);
-  updateCardSection();
-}
-
-const deleteCardPopup = new PopupWithConfirmation('.popup_target_confirmation', (cardId) => {
-  api.deleteCard(cardId)
-    .then(updatedCardInfo => {
-      deleteLocalCard(cardId);
+const deleteCardPopup = new PopupWithConfirmation('.popup_target_confirmation', (card) => {
+  api.deleteCard(card.getId())
+    .then(_ => {
+      card.delete();
+      deleteCardPopup.close();
     })
     .catch(err => {
       console.log(err);
     });
-  deleteCardPopup.close();
+
 });
 deleteCardPopup.setEventListeners();
 
-function cardDeleteHandler(cardId) {
-  deleteCardPopup.open(cardId);
+function cardDeleteHandler(card) {
+  deleteCardPopup.open(card);
 }
 
 function cardClickHandler(cardInfo) {
@@ -102,6 +72,7 @@ function cardLikeHandler(cardId, enable) {
 }
 
 function createCard(cardInfo) {
+  console.log(`createCard(): ${JSON.stringify(cardInfo)}`);
   const {_id: cardId, name, link, likes, owner: { _id: ownerId}} = cardInfo;
   const likedByMe = likes.filter(item => item._id === userId).length > 0;
   const allLikes = likes.length;
@@ -121,32 +92,32 @@ function createCard(cardInfo) {
  * Описываем логику добавления новой карточки
  */
 
-const cardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
-  cardPopup.setSubmitButtonText('Создание...');
+const createCardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
+  createCardPopup.setSubmitButtonText('Создание...');
   const name = inputValues['input-card-name'];
   const link = inputValues['input-card-image-link'];
   api.addCard({ name, link })
-    .then(updatedCardInfo => {
-     addLocalCard(updatedCardInfo);
-      cardPopup.close();
+    .then(cardInfo => {
+      cardSection.renderItems([cardInfo]);
+      createCardPopup.close();
     })
     .catch(err => {
       console.log(err);
     })
     .finally(() => {
-      cardPopup.setSubmitButtonText('Создать');
+      createCardPopup.setSubmitButtonText('Создать');
     });
 
 });
-cardPopup.setEventListeners();
+createCardPopup.setEventListeners();
 
 const openCardPopupButton = document.querySelector('.profile__add-button');
 openCardPopupButton.addEventListener('click', () => {
   cardFormValidator.resetValidation();
-  cardPopup.open();
+  createCardPopup.open();
 });
 
-const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElement());
+const cardFormValidator = new FormValidator(formSelectors, createCardPopup.getFormElement());
 cardFormValidator.enableValidation();
 
 
@@ -208,7 +179,7 @@ Promise.all([api.getUser(), api.getCards()])
   .then(([newUserInfo, initialCards]) => {
     userInfo.setUserInfo(newUserInfo);
     userId = newUserInfo._id;
-    updateLocalCards(initialCards);
+    cardSection.renderItems(initialCards.reverse());
   })
   .catch(err => {
     console.log(err);

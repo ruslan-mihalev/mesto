@@ -21,7 +21,7 @@ export default class Card {
     });
 
     this._deleteButtonElement.addEventListener('click', () => {
-      this._handleCardDelete(this._cardId);
+      this._handleCardDelete(this);
     });
 
     this._imageElement.addEventListener('click', () => {
@@ -37,6 +37,22 @@ export default class Card {
       .content
       .querySelector('.card-grid__item')
       .cloneNode(true);
+  }
+
+  getId() {
+    return this._cardId;
+  }
+
+  like(liked) {
+    if (liked) {
+      this._likeButtonElement.classList.add('card-grid__item-like-button_active');
+    } else {
+      this._likeButtonElement.classList.remove('card-grid__item-like-button_active');
+    }
+  }
+
+  delete() {
+    this._cardElement.remove();
   }
 
   generateCard() {
@@ -60,11 +76,7 @@ export default class Card {
       this._deleteButtonElement.classList.remove('card-grid__item-delete-button_active');
     }
 
-    if (this._likedByMe) {
-      this._likeButtonElement.classList.add('card-grid__item-like-button_active');
-    } else {
-      this._likeButtonElement.classList.remove('card-grid__item-like-button_active');
-    }
+    this.like(this._likedByMe);
 
     if (this._allLikes > 0) {
       this._likeCountElement.textContent = this._allLikes;
