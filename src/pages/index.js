@@ -19,11 +19,12 @@ const headers = {
 const api = new Api({baseUrl, headers});
 
 
-/**
- * Описываем логику редактирования профиля
- */
-
 const userInfo = new UserInfo(userInfoSelectors);
+
+/**
+ * Не понимаю как обойтись без этой переменной
+ */
+let userId;
 
 /*
  * Описываем логику отображения списка карточек
@@ -32,13 +33,14 @@ const userInfo = new UserInfo(userInfoSelectors);
 const imagePopup = new PopupWithImage('.popup_target_image');
 imagePopup.setEventListeners();
 
-let localCards = [];
+
 let cardSection = new Section({
   renderer: (item) => {
     cardSection.addItem(createCard(item));
   }
 }, '.card-grid__container');
 
+let localCards = [];
 function updateCardSection() {
   cardSection.renderItems(localCards);
 }
@@ -101,7 +103,6 @@ function cardLikeHandler(cardId, enable) {
 
 function createCard(cardInfo) {
   const {_id: cardId, name, link, likes, owner: { _id: ownerId}} = cardInfo;
-  const { _id: userId } = userInfo.getUserInfo();
   const likedByMe = likes.filter(item => item._id === userId).length > 0;
   const allLikes = likes.length;
   const canDelete = ownerId === userId;
@@ -148,14 +149,10 @@ openCardPopupButton.addEventListener('click', () => {
 const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElement());
 cardFormValidator.enableValidation();
 
-Promise.all([api.getUser(), api.getCards()])
-  .then(([newUserInfo, initialCards]) => {
-    userInfo.setUserInfo(newUserInfo);
-    updateLocalCards(initialCards);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+
+/**
+ * Описываем логику редактирования профиля
+ */
 
 const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) => {
   profilePopup.setSubmitButtonText('Сохранение...');
@@ -206,3 +203,13 @@ openAvatarPopupButton.addEventListener('click', () => {
   avatarFormValidator.resetValidation();
   avatarPopup.open();
 });
+
+Promise.all([api.getUser(), api.getCards()])
+  .then(([newUserInfo, initialCards]) => {
+    userInfo.setUserInfo(newUserInfo);
+    userId = newUserInfo._id;
+    updateLocalCards(initialCards);
+  })
+  .catch(err => {
+    console.log(err);
+  });
