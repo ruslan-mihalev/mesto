@@ -33,16 +33,14 @@ const imagePopup = new PopupWithImage('.popup_target_image');
 imagePopup.setEventListeners();
 
 let localCards = [];
-let cardSection;
+let cardSection = new Section({
+  renderer: (item) => {
+    cardSection.addItem(createCard(item));
+  }
+}, '.card-grid__container');
 
 function updateCardSection() {
-  cardSection = new Section({
-    items: localCards,
-    renderer: (item) => {
-      cardSection.addItem(createCard(item));
-    }
-  }, '.card-grid__container');
-  cardSection.render();
+  cardSection.renderItems(localCards);
 }
 
 function updateLocalCards(newCards) {
@@ -151,7 +149,7 @@ const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElem
 cardFormValidator.enableValidation();
 
 
-function loadCards(userId) {
+function loadCards() {
   api.getCards()
     .then(json => {
       updateLocalCards(json);
@@ -164,7 +162,7 @@ function loadCards(userId) {
 api.getUser()
   .then(profileInfo => {
     userInfo.setUserInfo(profileInfo);
-    loadCards(profileInfo._id);
+    loadCards();
   })
   .catch(err => {
     console.log(err);
