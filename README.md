@@ -74,3 +74,28 @@
 ```npm i autoprefixer --save-dev```
 ```npm i cssnano --save-dev```
 
+### Продемонстрирована работа с сетью
+
+#### Загрузка информации о пользователе с сервера
+```GET https://nomoreparties.co/v1/cohortId/users/me```
+
+#### Загрузка карточек с сервера
+```GET https://mesto.nomoreparties.co/v1/cohortId/cards```
+
+#### Редактирование профиля
+```PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me```
+
+#### Добавление новой карточки
+```POST https://mesto.nomoreparties.co/v1/cohortId/cards```
+
+#### Удаление карточки
+```DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId```
+
+#### Постановка лайка
+```PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes```
+
+#### Снятие лайка
+```DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes```
+
+#### Обновление аватара пользователя
+```PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar```

@@ -1,6 +1,8 @@
 /*
  * Попап просмотра изображения
  */
+import {all} from "core-js/internals/document-all";
+
 export default class Card {
   constructor({ cardId, name, link, likedByMe, allLikes, canDelete, templateSelector, handleCardClick, handleCardLike, handleCardDelete }) {
     this._cardId = cardId;
@@ -17,7 +19,7 @@ export default class Card {
 
   _setEventListeners() {
     this._likeButtonElement.addEventListener('click', () => {
-      this._handleCardLike(this._cardId, !this._likedByMe);
+      this._handleCardLike(this, !this._likedByMe);
     });
 
     this._deleteButtonElement.addEventListener('click', () => {
@@ -43,12 +45,26 @@ export default class Card {
     return this._cardId;
   }
 
-  like(liked) {
-    if (liked) {
+  _updateLikes(likedByMe, allLikes) {
+    if (likedByMe) {
       this._likeButtonElement.classList.add('card-grid__item-like-button_active');
     } else {
       this._likeButtonElement.classList.remove('card-grid__item-like-button_active');
     }
+
+    if (allLikes > 0) {
+      this._likeCountElement.textContent = allLikes;
+      this._likeCountElement.classList.add('card-grid__item-like-count_active');
+    } else {
+      this._likeCountElement.classList.remove('card-grid__item-like-count_active');
+      this._likeCountElement.textContent = 0;
+    }
+  }
+
+  updateLikes(likedByMe, allLikes) {
+    this._updateLikes(likedByMe, allLikes);
+    this._likedByMe = likedByMe;
+    this._allLikes = allLikes;
   }
 
   delete() {
@@ -76,15 +92,7 @@ export default class Card {
       this._deleteButtonElement.classList.remove('card-grid__item-delete-button_active');
     }
 
-    this.like(this._likedByMe);
-
-    if (this._allLikes > 0) {
-      this._likeCountElement.textContent = this._allLikes;
-      this._likeCountElement.classList.add('card-grid__item-like-count_active');
-    } else {
-      this._likeCountElement.classList.remove('card-grid__item-like-count_active');
-      this._likeCountElement.textContent = 0;
-    }
+    this._updateLikes(this._likedByMe, this._allLikes);
 
     return this._cardElement;
   }

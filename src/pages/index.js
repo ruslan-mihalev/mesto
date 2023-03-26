@@ -22,7 +22,9 @@ const api = new Api({baseUrl, headers});
 const userInfo = new UserInfo(userInfoSelectors);
 
 /**
- * Не понимаю как обойтись без этой переменной
+ * Сохраняем идентификатор текущего пользователя для двух целей:
+ * - отображать кнопку удаления только на карточках, созданных текущим пользователем;
+ * - отображать "крупный лайк" только на карточках, которым поставил лайк текущий пользотель
  */
 let userId;
 
@@ -32,13 +34,6 @@ let userId;
 
 const imagePopup = new PopupWithImage('.popup_target_image');
 imagePopup.setEventListeners();
-
-
-let cardSection = new Section({
-  renderer: (item) => {
-    cardSection.addItem(createCard(item));
-  }
-}, '.card-grid__container');
 
 const deleteCardPopup = new PopupWithConfirmation('.popup_target_confirmation', (card) => {
   api.deleteCard(card.getId())
@@ -61,24 +56,31 @@ function cardClickHandler(cardInfo) {
   imagePopup.open(cardInfo);
 }
 
-function cardLikeHandler(cardId, enable) {
-  api.like(cardId, enable)
-    .then(updatedCardInfo => {
-      updateLocalCard({ _id: cardId, ...updatedCardInfo });
+function extractLikesInfo(likes) {
+  return {
+    likedByMe: likes.filter(item => item._id === userId).length > 0,
+    allLikes: likes.length
+  }
+}
+
+function cardLikeHandler(card, enable) {
+  api.like(card.getId(), enable)
+    .then(({likes}) => {
+      const {likedByMe, allLikes} = extractLikesInfo(likes);
+      card.updateLikes(likedByMe, allLikes);
     })
     .catch(err => {
       console.log(err);
     });
 }
 
+
 function createCard(cardInfo) {
-  console.log(`createCard(): ${JSON.stringify(cardInfo)}`);
-  const {_id: cardId, name, link, likes, owner: { _id: ownerId}} = cardInfo;
-  const likedByMe = likes.filter(item => item._id === userId).length > 0;
-  const allLikes = likes.length;
+  const {_id: cardId, name, link, likes, owner: {_id: ownerId}} = cardInfo;
+  const likesInfo = extractLikesInfo(likes);
   const canDelete = ownerId === userId;
   const card = new Card({
-    cardId, name, link, likedByMe, allLikes, canDelete,
+    cardId, name, link, ...likesInfo, canDelete,
     templateSelector: '#card-template',
     handleCardClick: cardClickHandler,
     handleCardLike: cardLikeHandler,
@@ -87,16 +89,20 @@ function createCard(cardInfo) {
   return card.generateCard();
 }
 
+const cardSection = new Section({
+  renderer: (item) => {
+    cardSection.addItem(createCard(item));
+  }
+}, '.card-grid__container');
 
 /*
  * Описываем логику добавления новой карточки
  */
-
 const createCardPopup = new PopupWithForm('.popup_target_card', (inputValues) => {
   createCardPopup.setSubmitButtonText('Создание...');
   const name = inputValues['input-card-name'];
   const link = inputValues['input-card-image-link'];
-  api.addCard({ name, link })
+  api.addCard({name, link})
     .then(cardInfo => {
       cardSection.renderItems([cardInfo]);
       createCardPopup.close();
@@ -145,7 +151,7 @@ profileFormValidator.enableValidation();
 
 const openProfilePopupButton = document.querySelector('.profile__edit-button');
 openProfilePopupButton.addEventListener('click', () => {
-  const { name, about } = userInfo.getUserInfo();
+  const {name, about} = userInfo.getUserInfo();
   profilePopup.fill({'input-name': name, 'input-aboutme': about});
   profileFormValidator.resetValidation();
   profilePopup.open();
