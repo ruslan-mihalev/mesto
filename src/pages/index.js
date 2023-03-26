@@ -148,26 +148,14 @@ openCardPopupButton.addEventListener('click', () => {
 const cardFormValidator = new FormValidator(formSelectors, cardPopup.getFormElement());
 cardFormValidator.enableValidation();
 
-
-function loadCards() {
-  api.getCards()
-    .then(json => {
-      updateLocalCards(json);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
-api.getUser()
-  .then(profileInfo => {
-    userInfo.setUserInfo(profileInfo);
-    loadCards();
+Promise.all([api.getUser(), api.getCards()])
+  .then(([newUserInfo, initialCards]) => {
+    userInfo.setUserInfo(newUserInfo);
+    updateLocalCards(initialCards);
   })
   .catch(err => {
     console.log(err);
   });
-
 
 const profilePopup = new PopupWithForm('.popup_target_profile', (inputValues) => {
   profilePopup.setSubmitButtonText('Сохранение...');
@@ -198,8 +186,7 @@ openProfilePopupButton.addEventListener('click', () => {
 const avatarPopup = new PopupWithForm('.popup_target_avatar', (inputValues) => {
   avatarPopup.setSubmitButtonText('Сохранение...');
   api.setAvatar(inputValues['input-profile-avatar-link'])
-    .then(json => {
-      const newUserInfo = {...userInfo.getUserInfo(), ...json};
+    .then(newUserInfo => {
       userInfo.setUserInfo(newUserInfo);
       avatarPopup.close();
     })
